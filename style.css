@@ -1,0 +1,59 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: #484759;
+    color: #05F29B ;
+}
+.card{
+    border: none;
+    border-radius: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+    background-color: #04BF7B;
+    color: #484759;
+    box-shadow: 5px 5px 10px #484759;
+}
+.card-footer{
+    text-align: center;
+    border-top: none;
+    background-color: #04BF7B;
+}
+.card img{
+    border-radius: 10px 10px 0px 0px;
+    /*height: 70%;*/
+}
+
+.navbar-default {
+    background-repeat: no-repeat;
+}
+.navbar-brand{
+    color: #05F29B;
+}
+.nav-item a{
+    color: #05F29B;
+    padding: 50px;
+    
+}
+
+.container{
+    
+    margin-bottom: 100px;
+}
+.title-border{
+    border:1px  #05F29B solid  ;
+    color: #05F29B;
+    text-align: center;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+
+.full-container{
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
+footer{
+    text-align: center;
+}
+
