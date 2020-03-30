@@ -1,24 +1,8 @@
 <?php
 
-  session_start();
-  include 'config.php';
-  $conn = OpenCon();
+session_start();
+include 'config.php';
 
-  $sqlUserCheck = "SELECT * FROM now_showing";
-  $result = mysqli_query($conn, $sqlUserCheck);
-  $rowCount = "";
-  
-
-  /*$json_array=array();
-
-  while ($row=mysqli_fetch_assoc($result)) {
-    $json_array[]=$row;
-  }
-  echo json_encode($json_array);*/
-
-  
-
-  CloseCon($conn);
 ?>
 
 <!DOCTYPE html>
@@ -238,7 +222,7 @@
       <h1>Now Showing</h1>
     </div>
     <div class="card-deck">
-    <?php
+      <?php
       $conn = OpenCon();
 
       $sqlUserCheck = "SELECT * FROM now_showing";
@@ -286,17 +270,22 @@
                   
                   ';
           } 
+          
+          
+        
+        
+        
+          
         }
+      
+
+
+
+
       }
       CloseCon($conn);
       ?>
-      
-      
-
-
-
-    </div>
-
+    
   </div>
   <!--Showing now Ends-->
 
