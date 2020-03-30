@@ -227,8 +227,9 @@ input {
 }
 
 footer {
-    background-color: #222;
-    color: #fff;
+	text-align: center;
+	color:  #FF4B2B;
+
     font-size: 14px;
     bottom: 0;
     position: fixed;

@@ -9,6 +9,7 @@ body{
 	color: #FF416C ;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 500;
+	/*height: 100%;*/
 
 }
 h1{
@@ -26,6 +27,9 @@ p{
 }
 b{
 	font-weight: 900;
+}
+a{
+	text-decoration: none !important;
 }
 /*Card Starts*/
 .card{
@@ -50,6 +54,8 @@ b{
     border-radius: 10px 10px 0px 0px;
     height: 60%;
 }
+
+
 /*Card Ends*/
 
 .theme-bg{
@@ -80,6 +86,10 @@ b{
 	font-weight: 900;
 	font-size: 25px;
 }
+.navbar-brand:hover{
+	color: black;
+	
+}
 .nav-item a{
 	color: white;
 	font-family: 'Raleway', sans-serif;
@@ -92,6 +102,11 @@ b{
 .nav-link{
 	color: white;
 }
+.nav-link:hover{
+	color: black;
+}
+
+
 /*Navbar Ends*/
 
 
@@ -164,8 +179,25 @@ footer{
 }
 
 
-
-
+/*Booking Area Start*/
+.booking{
+	height: 100%;
+}
+.booking-card{
+	min-height: 75%;
+	margin-left:15% ;
+	margin-right:15% ;
+	margin-top: 150px;
+	height: 80%;
+	
+}
+.booking-card img{
+	height: 60%;
+}
+#selection-one{
+	padding: 20px;
+}
+/*Booking Area Ends*/
 
 
 
