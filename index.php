@@ -1,24 +1,24 @@
 <?php
 
-  session_start();
-  include 'config.php';
-  $conn = OpenCon();
+session_start();
+include 'config.php';
+$conn = OpenCon();
 
-  $sqlUserCheck = "SELECT * FROM now_showing";
-  $result = mysqli_query($conn, $sqlUserCheck);
-  $rowCount = "";
-  
+$sqlUserCheck = "SELECT * FROM now_showing";
+$result = mysqli_query($conn, $sqlUserCheck);
+$rowCount = "";
 
-  /*$json_array=array();
+
+/*$json_array=array();
 
   while ($row=mysqli_fetch_assoc($result)) {
     $json_array[]=$row;
   }
   echo json_encode($json_array);*/
 
-  
 
-  CloseCon($conn);
+
+CloseCon($conn);
 ?>
 
 <!DOCTYPE html>
@@ -238,14 +238,14 @@
       <h1>Now Showing</h1>
     </div>
     <div class="card-deck">
-    <?php
+      <?php
       $conn = OpenCon();
 
       $sqlUserCheck = "SELECT * FROM now_showing";
       $result = mysqli_query($conn, $sqlUserCheck);
       $rowCount = "";
-      $searchName="";
-      
+      $searchName = "";
+
       if ($result) {
         // it return number of rows in the table. 
         $rowCount = mysqli_num_rows($result);
@@ -254,11 +254,10 @@
 
       if ($rowCount < 1) {
         echo '<h3>No Movies to show</h3>';
-      } 
-      else {
+      } else {
 
         while ($row = mysqli_fetch_assoc($result)) {
-          $searchName=$row['mv_name'];
+          $searchName = $row['mv_name'];
           $sqlUserCheckMovie = "SELECT mv_name, director, genre, release_date, runtime, cast, poster FROM movies WHERE mv_name = '$searchName'";
           $resultMovie = mysqli_query($conn, $sqlUserCheckMovie);
           if ($resultMovie) {
@@ -270,14 +269,14 @@
             echo '
                   
                   <div class="card">
-                    <img src="'.$movieRow['poster'].'" class="card-img-top" alt="...">
+                    <img src="' . $movieRow['poster'] . '" class="card-img-top" alt="...">
                     <div class="card-body">
-                      <h3 class="card-title">'.$movieRow['mv_name'].'</h3>
-                      <p class="card-text"><b>Director:</b>'.$movieRow['director'].'</p>
-                      <p class="card-text"><b>Genre:</b> '.$movieRow['genre'].'</p>
-                      <p class="card-text"><b>Release Date:</b>'.$movieRow['release_date'].'</p>
-                      <p class="card-text"><b>Runtime:</b>'.$movieRow['runtime'].'</p>
-                      <p class="card-text"><b>Cast:</b>'.$movieRow['cast'].'</p>
+                      <h3 class="card-title">' . $movieRow['mv_name'] . '</h3>
+                      <p class="card-text"><b>Director : </b>' . $movieRow['director'] . '</p>
+                      <p class="card-text"><b>Genre : </b> ' . $movieRow['genre'] . '</p>
+                      <p class="card-text"><b>Release Date : </b>' . $movieRow['release_date'] . '</p>
+                      <p class="card-text"><b>Runtime : </b>' . $movieRow['runtime'] . '</p>
+                      <p class="card-text"><b>Cast : </b>' . $movieRow['cast'] . '</p>
                     </div>
                     <div class="card-footer">
                       <button class="ghost">Watch now</button>
@@ -285,13 +284,13 @@
                   </div>
                   
                   ';
-          } 
+          }
         }
       }
       CloseCon($conn);
       ?>
-      
-      
+
+
 
 
 
@@ -307,36 +306,61 @@
       <h1>Coming Soon</h1>
     </div>
     <div class="card-deck">
-      <div class="card">
-        <img src="images/poster3.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h3 class="card-title">Wonder Women 1984</h3>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-        <div class="card-footer">
-          <h3>Coming Soon</h3>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/poster1.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h3 class="card-title">No Time To die</h3>
-          <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        </div>
-        <div class="card-footer">
-          <h3>Coming Soon</h3>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/poster6.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h3 class="card-title">Fast & Furious 9</h3>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        </div>
-        <div class="card-footer">
-          <h3>Coming Soon</h3>
-        </div>
-      </div>
+      <!--PHP code here for dynamic-->
+      <?php
+      $conn = OpenCon();
+
+      $sqlUserCheck = "SELECT * FROM upcoming";
+      $result = mysqli_query($conn, $sqlUserCheck);
+      $rowCount = "";
+      $searchName = "";
+
+      if ($result) {
+        // it return number of rows in the table. 
+        $rowCount = mysqli_num_rows($result);
+      }
+
+
+      if ($rowCount < 1) {
+        echo '<h3>No Movies to show</h3>';
+      } else {
+
+        while ($row = mysqli_fetch_assoc($result)) {
+          $searchName = $row['mv_name'];
+          $sqlUserCheckMovie = "SELECT mv_name, director, genre, release_date, runtime, cast, poster FROM movies WHERE mv_name = '$searchName'";
+          $resultMovie = mysqli_query($conn, $sqlUserCheckMovie);
+          if ($resultMovie) {
+            // it return number of rows in the table. 
+            $count = mysqli_num_rows($resultMovie);
+          }
+          if ($count !== 0) {
+            $movieRow = mysqli_fetch_assoc($resultMovie);
+            echo '
+                  
+                  <div class="card">
+                    <img src="' . $movieRow['poster'] . '" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h3 class="card-title">' . $movieRow['mv_name'] . '</h3>
+                      <p class="card-text"><b>Director : </b>' . $movieRow['director'] . '</p>
+                      <p class="card-text"><b>Genre : </b> ' . $movieRow['genre'] . '</p>
+                      <p class="card-text"><b>Release Date : </b>' . $movieRow['release_date'] . '</p>
+                      <p class="card-text"><b>Runtime : </b>' . $movieRow['runtime'] . '</p>
+                      <p class="card-text"><b>Cast : </b>' . $movieRow['cast'] . '</p>
+                    </div>
+                    <div class="card-footer">
+                      <h3>Coming Soon</h3>
+                    </div>
+                  </div>
+                  
+                  ';
+          }
+        }
+      }
+      CloseCon($conn);
+      ?>
+
+
+
 
     </div>
 
