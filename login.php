@@ -4,7 +4,7 @@
     
     session_start();
     $reqUsername = $reqPassword = "";
-    $registrationUsername=$registrationPassword=$registrationConfirmPassword="";
+    $registrationUsernameInDB=$registrationUsername=$registrationPassword=$registrationConfirmPassword="";
 
     $error ="";
 
@@ -127,7 +127,7 @@
                 <h1>Create Account</h1>
                 
                 <span>create an account with username and password</span>
-                <input name="new-username" type="text" placeholder="Username" required />
+                <input name="new-username" type="text" value="<?php echo $registrationUsername;?>" placeholder="Username" required />
                 <input name="new-password" type="password" placeholder="Password" required/>
                 <input name="new-confirm-password" type="password" placeholder="Confirm Password" required />
                 <button name="sign-up" type="submit">Sign Up</button>
@@ -139,7 +139,7 @@
                 <h1>Sign in</h1>
                 
                 <span>using your account</span>
-                <input type="text" name="username" placeholder="Username" required />
+                <input type="text" name="username"  value="<?php echo $reqUsername;?>" placeholder="Username" required />
                 <input type="password" name="password" placeholder="Password" required />
                 <a href="#">Forgot your password?</a>
                 <button name="sign-in" type="submit">Sign In</button>

@@ -5,7 +5,8 @@ if (!isset($_SESSION["username"])) {
   header("Location: login.php");
 }
 $currentUsername = $_SESSION["username"];
-$msg = 'Hello';
+$msg = ' ';
+$change="";
 $fullName = $email = $phone = $dob = $gender = '';
 
 include 'config.php';
@@ -63,14 +64,15 @@ if (isset($_POST['change-password'])) {
 
         if ($newPassword === $confirmNewPassword) {
           # Update the password...
-          $param_password = password_hash($registrationPassword, PASSWORD_DEFAULT);
+          $param_password = password_hash($newPassword, PASSWORD_DEFAULT);
+          //return $param_password;
           $sql = "UPDATE users
             SET password = '$param_password'
-            WHERE username = $currentUsername;";
+            WHERE username = '$currentUsername';";
 
           mysqli_query($conn, $sql);
 
-          $msg = "Password Changed Successfully!";
+          $msg = "Password Changed Successfully! ";
         } else {
           $msg = "The New Passwords Does Not Match!";
         }
@@ -78,6 +80,30 @@ if (isset($_POST['change-password'])) {
         $msg = "Current Password Is Wrong!";
       }
     }
+  }
+}
+
+//update info
+if (isset($_POST['update'])) 
+{ 
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $fullName=$_POST['fullName'];
+    $email=$_POST['email'];
+    $phone=$_POST['phone'];
+    $dob=$_POST['dob'];
+    $gender=$_POST['gender'];
+
+
+    $sqlUpdate = "UPDATE user_info
+    SET full_name = '$fullName',
+        email = '$email',
+        phone = '$phone',
+        dob = '$dob',
+        gender = '$gender'
+    WHERE username = '$currentUsername';";
+
+    mysqli_query($conn, $sqlUpdate);
+    $change="Change Saved!";
   }
 }
 
@@ -111,7 +137,7 @@ CloseCon($conn);
 <body>
   <nav class="navbar navbar-expand-lg navbar-default fixed-top theme-bg">
     <div class="container">
-      <a class="navbar-brand" href="#">Amber Cineplex</a>
+      <a class="navbar-brand" href="index.php">Amber Cineplex</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -132,9 +158,17 @@ CloseCon($conn);
             echo '
               <div class="media">
                   <img class="mr-3 placeholder-image"  src="images/placeholder.jpg" alt="Generic placeholder image">
-                  <div class="media-body">
-                    <a class="nav-item nav-link" href="profile.php">Welcome ' . $_SESSION["username"] . '</a>
-                  </div>
+                  <div class="media-body">';
+            if ($_SESSION["username"] === 'Admin') {
+              # code...
+              echo '<a class="nav-item nav-link" href="admin.php">Welcome ' . $_SESSION["username"] . '</a>';
+            } else {
+              # code...
+              echo '<a class="nav-item nav-link" href="profile.php">Welcome ' . $_SESSION["username"] . '</a>';
+            }
+
+
+            echo '</div>
               </div>
               
               ';
@@ -148,7 +182,9 @@ CloseCon($conn);
     </div>
   </nav>
 
-  <div style="display: none;"  id="change-panel" class="change-password-panel container carousel-container ">
+  <!--Change Password-->
+
+  <div style="display: none;" id="change-panel" class="change-password-panel container carousel-container ">
     <div class="container container2 title-border">
       <h1>Change Your Password</h1>
     </div>
@@ -198,7 +234,7 @@ CloseCon($conn);
     </form>
   </div>
 
-
+  <!--Change Password Ends-->
   <!-- Profile option-->
 
   <div class="container carousel-container ">
@@ -215,61 +251,67 @@ CloseCon($conn);
             <a href="logout.php"><button class="ghost">Sign Out</button></a>
           </div>
 
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="">Full name</span>
-            </div>
-            <input type="text" value="<?php echo $fullName; ?>" class="form-control"></input>
 
-          </div>
-          <br>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="">Email</span>
-            </div>
-            <input type="email" value="<?php echo $email; ?>" class="form-control">
+          <form action="profile.php" method="post">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="">Full name</span>
+              </div>
+              <input type="text" name="fullName" value="<?php echo $fullName; ?>" class="form-control"></input>
 
-          </div>
-          <br>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="">Phone</span>
             </div>
-            <input type="text" value="<?php echo $phone; ?>" class="form-control">
+            <br>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="">Email</span>
+              </div>
+              <input type="email" name="email" value="<?php echo $email; ?>" class="form-control">
 
-          </div>
-          <br>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="">Date of birth</span>
             </div>
-            <input type="date" value="<?php echo $dob; ?>" min="2018-01-01" max="<?php echo date("Y-m-d"); ?>" class="form-control">
+            <br>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="">Phone</span>
+              </div>
+              <input type="text" name="phone" value="<?php echo $phone; ?>" class="form-control">
 
-          </div>
-          <br>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="">Gender</span>
             </div>
-            <input type="text" value="<?php echo $gender; ?>" class="form-control">
+            <br>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="">Date of birth</span>
+              </div>
+              <input type="date" name="dob" value="<?php echo $dob; ?>" min="1900-01-01" max="<?php echo date("Y-m-d"); ?>" class="form-control">
 
-          </div>
+            </div>
+            <br>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="">Gender</span>
+              </div>
+              <input type="text" name="gender" value="<?php echo $gender; ?>" class="form-control">
+
+            </div>
 
 
         </div>
+        
         <div class="card-footer">
-
-          <button class="ghost">Save</button>
-          <button id ="changePasswordButton" onclick="changePassword()" class="ghost">Change Password</button>
+          <h4><?php echo $change; ?></h4>
+          <button type="submit" name="update" class="ghost">Save</button>
+          <button id="changePasswordButton" onclick="changePassword()" class="ghost">Change Password</button>
 
         </div>
+
+
+        </form>
       </div>
 
     </div>
   </div>
 
 
-  <!--Change Password-->
+
 
 
   <!-- Purchase History-->
@@ -327,28 +369,8 @@ CloseCon($conn);
 
         $sl++;
       }
-
-
-
-
-
-
-
-
-
       echo '</table>';
     }
-
-
-
-
-
-
-
-
-
-
-
     CloseCon($conn);
     ?>
   </div>
@@ -369,6 +391,9 @@ CloseCon($conn);
       document.getElementById("changePasswordButton").style.display = "none";
     }
   </script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 
 </html>
