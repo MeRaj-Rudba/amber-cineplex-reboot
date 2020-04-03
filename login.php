@@ -96,9 +96,12 @@
             $param_password = password_hash($registrationPassword, PASSWORD_DEFAULT);
             $sql = "INSERT INTO users (username, password,type)
                     VALUES ('$registrationUsername','$param_password','customer');";
-                    $error="Signed Up Successfully";
-
+            $today =date("Y-m-d"); 
+            $sqlInfo = "INSERT INTO user_info (username,full_name,email,phone,dob,gender)
+                    VALUES ('$registrationUsername','$registrationUsername','','','$today','');";        
             mysqli_query($conn, $sql);
+            mysqli_query($conn, $sqlInfo);
+            $error="Signed Up Successfully";
             }
         }
         CloseCon($conn);
