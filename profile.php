@@ -222,8 +222,8 @@ CloseCon($conn);
           </div>
           <div class="card-footer">
             <h4><?php echo $msg; ?></h4>
-            <a href="logout.php"><button class="ghost">Cancel</button></a>
-            <a href="logout.php"><button type="submit" name="change-password" class="ghost">Confirm</button></a>
+            <button class="ghost">Cancel</button>
+            <button type="submit" name="change-password" class="ghost">Confirm</button>
 
           </div>
         </div>

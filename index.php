@@ -2,6 +2,7 @@
 
 session_start();
 include 'config.php';
+include 'databaseQuery.php';
 $conn = OpenCon();
 
 $sqlUserCheck = "SELECT * FROM now_showing";
@@ -9,12 +10,6 @@ $result = mysqli_query($conn, $sqlUserCheck);
 $rowCount = "";
 
 
-/*$json_array=array();
-
-  while ($row=mysqli_fetch_assoc($result)) {
-    $json_array[]=$row;
-  }
-  echo json_encode($json_array);*/
 
 
 
@@ -167,71 +162,64 @@ CloseCon($conn);
     </div>
     <div>
       <!--Schedule Data Table-->
-      <h2 class="date-h2">Friday,6 March,2020</h2>
-      <table class="table table-hover theme-bg">
-        <thead>
+      <h2 class="date-h2"><?php echo date("D, d M Y"); ?></h2>
+          <?php
+          $conn = OpenCon();
+            $sql="SELECT * FROM theatre;";
+                
+            $result=mysqli_query($conn, $sql);
+            $rowCount = "";  
+            if ($result) {
+              // it return number of rows in the table. 
+              $rowCount = mysqli_num_rows($result);
+            }
+            if ($rowCount < 1) {
+              echo '<div class="container container2 title-border">
+                <h3>No Schedule to show!</h3>
+              </div>';
+            } else {
+              echo
+                '
+              <table class="table table-hover theme-bg">
+                <thead>
+                  <tr>
+                    <th scope="col">SL</th>
+                    <th scope="col">Movie</th>
+                    <th scope="col">Theatre</th>
+                    <th scope="col">First Show</th>
+                    <th scope="col">Second Show</th>
+                    <th scope="col">Third Show</th>
+                  </tr>
+                </thead>
+              ';
+              $sl = 1;
+              while ($row = mysqli_fetch_assoc($result)) {
+               echo
+                  '
+              
+                  <tbody>
+                    <tr>
+                      <th scope="row">' . $sl . '</th>
+                      <td>' . $row['movie'] . '</td>
+                      <td>' . $row['theatre_name'] . '</td>
+                      <td>' . $row['show_1'] . '</td>
+                      <td>' . $row['show_2'] . '</td>
+                      <td>' . $row['show_3'] . '</td>
+                    </tr>
+                  </tbody>';
+        
+                $sl++;
+              }
+              echo '</table>';
+            }
+            CloseCon($conn);
+            ?>
 
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Birds of Prey</td>
-            <td>12.30PM</td>
-            <td>2.30PM</td>
-            <td>4.30PM</td>
-            <td>7.00PM</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Frozen 2</td>
-            <td>11.00AM</td>
-            <td>1.30PM</td>
-            <td>4.00PM</td>
-            <td>6.30PM</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Maleficent 2</td>
-            <td>12.00PM</td>
-            <td>NONE</td>
-            <td>3.00PM</td>
-            <td>6.00PM</td>
-          </tr>
-        </tbody>
-      </table>
-      <!--Day 2-->
-      <h2 class="date-h2">Saturday,7 March,2020</h2>
-      <table class="table table-hover theme-bg">
-        <thead>
 
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Birds of Prey</td>
-            <td>12.30PM</td>
-            <td>2.30PM</td>
-            <td>4.30PM</td>
-            <td>7.00PM</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Frozen 2</td>
-            <td>11.00AM</td>
-            <td>1.30PM</td>
-            <td>4.00PM</td>
-            <td>6.30PM</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Maleficent 2</td>
-            <td>12.00PM</td>
-            <td>NONE</td>
-            <td>3.00PM</td>
-            <td>6.00PM</td>
-          </tr>
-        </tbody>
-      </table>
+
+      
+      
+      
     </div>
 
   </div>
