@@ -6,7 +6,7 @@ if (!isset($_SESSION["username"])) {
 }
 $currentUsername = $_SESSION["username"];
 $msg = ' ';
-$change="";
+$change = "";
 $fullName = $email = $phone = $dob = $gender = '';
 
 include 'config.php';
@@ -84,14 +84,13 @@ if (isset($_POST['change-password'])) {
 }
 
 //update info
-if (isset($_POST['update'])) 
-{ 
+if (isset($_POST['update'])) {
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $fullName=$_POST['fullName'];
-    $email=$_POST['email'];
-    $phone=$_POST['phone'];
-    $dob=$_POST['dob'];
-    $gender=$_POST['gender'];
+    $fullName = $_POST['fullName'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $dob = $_POST['dob'];
+    $gender = $_POST['gender'];
 
 
     $sqlUpdate = "UPDATE user_info
@@ -103,7 +102,7 @@ if (isset($_POST['update']))
     WHERE username = '$currentUsername';";
 
     mysqli_query($conn, $sqlUpdate);
-    $change="Change Saved!";
+    $msg = "Change Saved!";
   }
 }
 
@@ -241,6 +240,9 @@ CloseCon($conn);
     <div class="container container2 title-border">
       <h1>Personal Information</h1>
     </div>
+    <div class="container ">
+      <h4 class="notification"><?php echo $msg; ?></h4>
+    </div>
     <div class="card-deck justify-content-center w-100">
       <div class="card">
 
@@ -295,7 +297,7 @@ CloseCon($conn);
 
 
         </div>
-        
+
         <div class="card-footer">
           <h4><?php echo $change; ?></h4>
           <button type="submit" name="update" class="ghost">Save</button>

@@ -26,7 +26,7 @@ if (isset($_POST['add-theatre'])) {
     if ($rowCountOfPass > 1) {
       $msg = "Hall already exists with the same name!";
     } else {
-      $sql = "INSERT INTO theatre (theatre_name, show1,show2,show3,capacity)
+      $sql = "INSERT INTO theatre (theatre_name, show_1,show_2,show_3,capacity)
                     VALUES ('$theatreName','$time1','$time2','$time3','$capacity');";
       mysqli_query($conn, $sql);
       $msg = "Theatre Added Successfully!";
@@ -36,19 +36,63 @@ if (isset($_POST['add-theatre'])) {
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mvName = $_POST['movie-name'];
     $theatreName = $_POST['inTheatre'];
-    $sqlScheduleCheck = "SELECT * FROM theatre WHERE movie = '$mvName'";
-    $result = mysqli_query($conn, $sqlScheduleCheck);
+    $startDate = $_POST['startDate'];
+    $endDate = $_POST['endDate'];
+    $capacity = "";
+
+    $sqlTheaterCheck = "SELECT * FROM theatre WHERE movie = '$mvName'";
+    $sqlScheduleCheck1 = "SELECT * FROM schedule WHERE date = '$startDate' AND theatre = '$theatreName'";
+    $sqlScheduleCheck2 = "SELECT * FROM schedule WHERE date = '$endDate' AND theatre = '$theatreName'";
+
+
+    $result = mysqli_query($conn, $sqlTheaterCheck);
+    $resultSchedule1 = mysqli_query($conn, $sqlScheduleCheck1);
+    $resultSchedule2 = mysqli_query($conn, $sqlScheduleCheck2);
     if ($result) {
       // it return number of rows in the table. 
       $rowCount = mysqli_num_rows($result);
     }
-    if ($rowCountOfPass > 1) {
+    if ($resultSchedule1) {
+      // it return number of rows in the table. 
+      $rowCountOfSchedule1 = mysqli_num_rows($resultSchedule1);
+    }
+    if ($resultSchedule2) {
+      // it return number of rows in the table. 
+      $rowCountOfSchedule2 = mysqli_num_rows($resultSchedule2);
+    }
+
+
+
+    if ($rowCount > 1 && $rowCountOfSchedule1 > 1 && $rowCountOfSchedule2 > 1) {
       $msg = "Movie Schedule Already Exist!";
     } else {
+      $sqlCapacityCheck = "SELECT * FROM theatre WHERE theatre_name = '$theatreName'";
+      $resultOfQuery = mysqli_query($conn, $sqlCapacityCheck);
+      $rowOfQuery = mysqli_fetch_assoc($resultOfQuery);
+      $capacity = $rowOfQuery['capacity'];
       $sql = "UPDATE theatre
       SET movie='$mvName'
       WHERE theatre_name='$theatreName';";
       mysqli_query($conn, $sql);
+
+      date_default_timezone_set('UTC');
+
+      // Start date
+      $date = $startDate;
+      // End date
+      $end_date = $endDate;
+
+      while (strtotime($date) <= strtotime($end_date)) {
+
+        $sqlSchedule = "INSERT INTO schedule (date, theatre, max_capacity, show_1, show_2, show_3)
+        VALUES ('$date','$theatreName','$capacity','$capacity','$capacity','$capacity');";
+        mysqli_query($conn, $sqlSchedule);
+
+        $date = date("Y-m-d", strtotime("+1 day", strtotime($date)));
+      }
+
+
+
       $msg = "Movie added to schedule successfully!";
     }
   }
@@ -61,6 +105,7 @@ if (isset($_POST['add-theatre'])) {
     $runtime = $_POST['runtime'];
     $cast = $_POST['cast'];
     $poster = $_POST['poster'];
+    $status = $_POST['status'];
 
 
 
@@ -72,6 +117,11 @@ if (isset($_POST['add-theatre'])) {
     }
     if ($rowCountOfPass > 1) {
       $msg = "Movie Already Exist!";
+      $sql = "UPDATE movies
+      SET status = '$status'
+      WHERE mv_name = '$mvName';";
+      mysqli_query($conn, $sql);
+      $msg = "Movie Status updated successfully!";
     } else {
       $sql = "INSERT INTO movies (mv_name, director, genre, release_date, runtime, cast, poster)
                     VALUES ('$mvName','$director','$genre','$releaseDate','$runtime','$cast','$poster');";
@@ -171,7 +221,7 @@ CloseCon($conn);
   <!--Msg Panel-->
 
   <div class="container container2 title-border">
-    <h1 style="color:black;"><?php echo $msg; ?> </h1>
+    <h1 class="notification"><?php echo $msg; ?> </h1>
   </div>
 
   <!-- Movie Panel-->
@@ -180,25 +230,20 @@ CloseCon($conn);
     <div class="container container2 title-border">
       <h2>Movies</h2>
     </div>
-    <!-- Now Showing-->
-    <div class="container container2 title-border">
-      <h4>Now Showing Movies</h4>
-    </div>
-
     <div class="card-deck justify-content-center w-100">
       <div class="card">
         <div class="card-body">
           <div class="card-body d-flex justify-content-between">
             <?php
             $conn = OpenCon();
-            $result = getResultAll($conn, 'now_showing');
+            $result = getResultAll($conn, 'movies');
             if ($result) {
               // it return number of rows in the table. 
               $rowCount = mysqli_num_rows($result);
             }
             if ($rowCount < 1) {
               echo '<div class="container container2 title-border">
-                    <h4>No Movies Showing Now!</h4>
+                    <h4>No Movies in Database!</h4>
                   </div>';
             } else {
               echo
@@ -208,13 +253,14 @@ CloseCon($conn);
                       <tr>
                         <th scope="col">SL</th>
                         <th scope="col">Movie Name</th>
+                        <th scope="col">Status</th>
                         
                       </tr>
                     </thead>
                   ';
               $sl = 1;
               while ($row = mysqli_fetch_assoc($result)) {
-                
+
 
 
                 echo
@@ -224,6 +270,7 @@ CloseCon($conn);
                         <tr>
                           <th scope="row">' . $sl . '</th>
                           <td>' . $row["mv_name"] . '</td>
+                          <td>' . $row["status"] . '</td>
                           
                         </tr>
                       </tbody>';
@@ -239,84 +286,35 @@ CloseCon($conn);
       </div>
 
     </div>
-    <!-- Now Showing-->
-
-    <br>
-    <div class="container container2 title-border">
-      <h4>Upcoming Movies</h4>
-    </div>
-
-    <div class="card-deck justify-content-center w-100">
-      <div class="card">
-        <div class="card-body">
-          <div class="card-body d-flex justify-content-between">
-            <?php
-            $conn = OpenCon();
-            $result = getResultAll($conn, 'upcoming');
-            if ($result) {
-              // it return number of rows in the table. 
-              $rowCount = mysqli_num_rows($result);
-            }
-            if ($rowCount < 1) {
-              echo '<div class="container container2 title-border">
-                    <h4>No movies coming up next!</h4>
-                  </div>';
-            } else {
 
 
 
-              echo
-                '
-                  <table class="table table-hover theme-bg">
-                    <thead>
-                      <tr>
-                        <th scope="col">SL</th>
-                        <th scope="col">Movie Name</th>
-                        
-                      </tr>
-                    </thead>
-                  ';
-              $sl = 1;
-              while ($row = mysqli_fetch_assoc($result)) {
-                
-
-                echo
-                  '
-                  
-                      <tbody>
-                        <tr>
-                          <th scope="row">' . $sl . '</th>
-                          <td>' . $row["mv_name"] . '</td>
-                          
-                          
-                        </tr>
-                      </tbody>';
-
-                $sl++;
-              }
-              echo '</table>';
-            }
-            CloseCon($conn);
-            ?>
-          </div>
-        </div>
-      </div>
-
-    </div>
     <br>
     <br>
     <div class="card-deck justify-content-center w-100">
       <div class="card">
         <div class="card-footer">
-
-          <button onclick="showSchedule();" name="addSchedule" class="ghost">Add Schedule</button></a>
-          <button onclick="showAddMovie();" name="addMovie" class="ghost">Add Movie</button></a>
-
-
+          
+          <button onclick="showSchedule()" id="addScheduleButton" class="ghost">Add Schedule</button>
+          <button onclick="showAddMovie()" id="addMovieButton" class="ghost">Add Movie</button>
+          <button onclick="showStatus()" id="addStatus" class="ghost">Add Status</button>
         </div>
       </div>
 
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -347,6 +345,22 @@ CloseCon($conn);
                   <span class="input-group-text" id="">Theatre</span>
                 </div>
                 <input name="inTheatre" type="text" class="form-control">
+
+              </div>
+              <br>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="">Start Date</span>
+                </div>
+                <input name="startDate" type="date" class="form-control" min="<?php echo date("Y-m-d"); ?>" value="<?php echo date("Y-m-d"); ?>">
+
+              </div>
+              <br>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="">End Date</span>
+                </div>
+                <input name="endDate" type="date" class="form-control" min="<?php echo date("Y-m-d"); ?>" value="<?php echo date("Y-m-d"); ?>">
 
               </div>
               <br>
@@ -436,6 +450,18 @@ CloseCon($conn);
 
               </div>
               <br>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                </div>
+                <select class="custom-select" id="inputGroupSelect01">
+                  <option selected>Choose...</option>
+                  <option value="Now Showing">Now Showing</option>
+                  <option value="Coming Soon">Coming Soon</option>
+                  <option value="Expired">Expired</option>
+                </select>
+              </div>
+              <br>
             </div>
             <div class="card-footer">
 
@@ -452,7 +478,67 @@ CloseCon($conn);
     </div>
     <!-- Add Movie hidden-->
 
+    <!-- Add to status hidden-->
+    <div style="display: none;" id="add-status" class=" container carousel-container ">
+      <div class="container container2 title-border">
+        <h1>Add Movie to Schedule</h1>
+      </div>
+      <form action="admin.php" method="post">
+        <div class="card-deck justify-content-center w-100">
+          <div class="card">
 
+            <div class="card-body">
+              <br>
+              <br>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="">Movie Name</span>
+                </div>
+                <input name="movie-name" type="text" class="form-control">
+
+              </div>
+              <br>
+
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="">Theatre</span>
+                </div>
+                <input name="inTheatre" type="text" class="form-control">
+
+              </div>
+              <br>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="">Start Date</span>
+                </div>
+                <input name="startDate" type="date" class="form-control" min="<?php echo date("Y-m-d"); ?>" value="<?php echo date("Y-m-d"); ?>">
+
+              </div>
+              <br>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="">End Date</span>
+                </div>
+                <input name="endDate" type="date" class="form-control" min="<?php echo date("Y-m-d"); ?>" value="<?php echo date("Y-m-d"); ?>">
+
+              </div>
+              <br>
+            </div>
+            <div class="card-footer">
+
+              <button class="ghost">Cancel</button></a>
+              <button type="submit" onclick="showAddSchedule();" name="add-schedule" class="ghost">Confirm</button>
+
+            </div>
+          </div>
+
+        </div>
+
+
+      </form>
+    </div>
+
+    <!-- Add to schedule hidden-->
 
 
 

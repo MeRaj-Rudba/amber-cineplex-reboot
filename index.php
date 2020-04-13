@@ -56,16 +56,16 @@ CloseCon($conn);
               <div class="media">
                   <img class="mr-3 placeholder-image"  src="images/placeholder.jpg" alt="Generic placeholder image">
                   <div class="media-body">';
-                    if ($_SESSION["username"]==='Admin') {
-                      # code...
-                      echo '<a class="nav-item nav-link" href="admin.php">Welcome ' . $_SESSION["username"] . '</a>';
-                    } else {
-                      # code...
-                      echo '<a class="nav-item nav-link" href="profile.php">Welcome ' . $_SESSION["username"] . '</a>';
-                    }
-                    
-                    
-                  echo'</div>
+            if ($_SESSION["username"] === 'Admin') {
+              # code...
+              echo '<a class="nav-item nav-link" href="admin.php">Welcome ' . $_SESSION["username"] . '</a>';
+            } else {
+              # code...
+              echo '<a class="nav-item nav-link" href="profile.php">Welcome ' . $_SESSION["username"] . '</a>';
+            }
+
+
+            echo '</div>
               </div>
               
               ';
@@ -163,23 +163,23 @@ CloseCon($conn);
     <div>
       <!--Schedule Data Table-->
       <h2 class="date-h2"><?php echo date("D, d M Y"); ?></h2>
-          <?php
-          $conn = OpenCon();
-            $sql="SELECT * FROM theatre;";
-                
-            $result=mysqli_query($conn, $sql);
-            $rowCount = "";  
-            if ($result) {
-              // it return number of rows in the table. 
-              $rowCount = mysqli_num_rows($result);
-            }
-            if ($rowCount < 1) {
-              echo '<div class="container container2 title-border">
+      <?php
+      $conn = OpenCon();
+      $sql = "SELECT * FROM theatre;";
+
+      $result = mysqli_query($conn, $sql);
+      $rowCount = "";
+      if ($result) {
+        // it return number of rows in the table. 
+        $rowCount = mysqli_num_rows($result);
+      }
+      if ($rowCount < 1) {
+        echo '<div class="container container2 title-border">
                 <h3>No Schedule to show!</h3>
               </div>';
-            } else {
-              echo
-                '
+      } else {
+        echo
+          '
               <table class="table table-hover theme-bg">
                 <thead>
                   <tr>
@@ -192,10 +192,10 @@ CloseCon($conn);
                   </tr>
                 </thead>
               ';
-              $sl = 1;
-              while ($row = mysqli_fetch_assoc($result)) {
-               echo
-                  '
+        $sl = 1;
+        while ($row = mysqli_fetch_assoc($result)) {
+          echo
+            '
               
                   <tbody>
                     <tr>
@@ -207,19 +207,19 @@ CloseCon($conn);
                       <td>' . $row['show_3'] . '</td>
                     </tr>
                   </tbody>';
-        
-                $sl++;
-              }
-              echo '</table>';
-            }
-            CloseCon($conn);
-            ?>
+
+          $sl++;
+        }
+        echo '</table>';
+      }
+      CloseCon($conn);
+      ?>
 
 
 
-      
-      
-      
+
+
+
     </div>
 
   </div>
@@ -237,8 +237,8 @@ CloseCon($conn);
       <?php
       $conn = OpenCon();
 
-      $sqlUserCheck = "SELECT * FROM now_showing";
-      $result = mysqli_query($conn, $sqlUserCheck);
+      $sqlMovieCheck = "SELECT mv_name, director, genre, release_date, runtime, cast, poster FROM movies WHERE status = 'Now Showing'";
+      $result = mysqli_query($conn, $sqlMovieCheck);
       $rowCount = "";
       $searchName = "";
 
@@ -253,36 +253,29 @@ CloseCon($conn);
       } else {
 
         while ($row = mysqli_fetch_assoc($result)) {
-          $searchName = $row['mv_name'];
-          $sqlUserCheckMovie = "SELECT mv_name, director, genre, release_date, runtime, cast, poster FROM movies WHERE mv_name = '$searchName'";
-          $resultMovie = mysqli_query($conn, $sqlUserCheckMovie);
-          if ($resultMovie) {
-            // it return number of rows in the table. 
-            $count = mysqli_num_rows($resultMovie);
-          }
-          if ($count !== 0) {
-            $movieRow = mysqli_fetch_assoc($resultMovie);
+          
             echo '
                   
-                  <div class="card">
-                    <img src="' . $movieRow['poster'] . '" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h3 class="card-title">' . $movieRow['mv_name'] . '</h3>
-                      <p class="card-text"><b>Director : </b>' . $movieRow['director'] . '</p>
-                      <p class="card-text"><b>Genre : </b> ' . $movieRow['genre'] . '</p>
-                      <p class="card-text"><b>Release Date : </b>' . $movieRow['release_date'] . '</p>
-                      <p class="card-text"><b>Runtime : </b>' . $movieRow['runtime'] . '</p>
-                      <p class="card-text"><b>Cast : </b>' . $movieRow['cast'] . '</p>
+                  <div  class="card ">
+                  <img src="' . $row['poster'] . '" class="card-img-top" alt="...">
+                    <div id="movie_card" class="card-body">
+                      <h3 class="card-title">' . $row['mv_name'] . '</h3>
+                      <p class="card-text"><b>Director : </b>' . $row['director'] . '</p>
+                      <p class="card-text"><b>Genre : </b> ' . $row['genre'] . '</p>
+                      <p class="card-text"><b>Release Date : </b>' . $row['release_date'] . '</p>
+                      <p class="card-text"><b>Runtime : </b>' . $row['runtime'] . '</p>
+                      <p class="card-text"><b>Cast : </b>' . $row['cast'] . '</p>
                     </div>
                     <div class="card-footer">
-                      <button class="ghost">Watch now</button>
+                      <button id="' . $row['mv_name'] . '" onclick="movieSelect(this.id);" class="ghost">Watch now</button>
                     </div>
+                    
                   </div>
                   
                   ';
           }
         }
-      }
+      
       CloseCon($conn);
       ?>
 
@@ -306,8 +299,8 @@ CloseCon($conn);
       <?php
       $conn = OpenCon();
 
-      $sqlUserCheck = "SELECT * FROM upcoming";
-      $result = mysqli_query($conn, $sqlUserCheck);
+      $sqlMovieCheck = "SELECT mv_name, director, genre, release_date, runtime, cast, poster FROM movies WHERE status = 'Coming Soon'";
+      $result = mysqli_query($conn, $sqlMovieCheck);
       $rowCount = "";
       $searchName = "";
 
@@ -322,36 +315,29 @@ CloseCon($conn);
       } else {
 
         while ($row = mysqli_fetch_assoc($result)) {
-          $searchName = $row['mv_name'];
-          $sqlUserCheckMovie = "SELECT mv_name, director, genre, release_date, runtime, cast, poster FROM movies WHERE mv_name = '$searchName'";
-          $resultMovie = mysqli_query($conn, $sqlUserCheckMovie);
-          if ($resultMovie) {
-            // it return number of rows in the table. 
-            $count = mysqli_num_rows($resultMovie);
-          }
-          if ($count !== 0) {
-            $movieRow = mysqli_fetch_assoc($resultMovie);
+          
             echo '
                   
-                  <div class="card">
-                    <img src="' . $movieRow['poster'] . '" class="card-img-top" alt="...">
-                    <div class="card-body">
-                      <h3 class="card-title">' . $movieRow['mv_name'] . '</h3>
-                      <p class="card-text"><b>Director : </b>' . $movieRow['director'] . '</p>
-                      <p class="card-text"><b>Genre : </b> ' . $movieRow['genre'] . '</p>
-                      <p class="card-text"><b>Release Date : </b>' . $movieRow['release_date'] . '</p>
-                      <p class="card-text"><b>Runtime : </b>' . $movieRow['runtime'] . '</p>
-                      <p class="card-text"><b>Cast : </b>' . $movieRow['cast'] . '</p>
+                  <div  class="card ">
+                  <img src="' . $row['poster'] . '" class="card-img-top" alt="...">
+                    <div id="movie_card" class="card-body">
+                      <h3 class="card-title">' . $row['mv_name'] . '</h3>
+                      <p class="card-text"><b>Director : </b>' . $row['director'] . '</p>
+                      <p class="card-text"><b>Genre : </b> ' . $row['genre'] . '</p>
+                      <p class="card-text"><b>Release Date : </b>' . $row['release_date'] . '</p>
+                      <p class="card-text"><b>Runtime : </b>' . $row['runtime'] . '</p>
+                      <p class="card-text"><b>Cast : </b>' . $row['cast'] . '</p>
                     </div>
                     <div class="card-footer">
                       <h3>Coming Soon</h3>
                     </div>
+                    
                   </div>
                   
                   ';
           }
         }
-      }
+      
       CloseCon($conn);
       ?>
 
@@ -374,7 +360,7 @@ CloseCon($conn);
 
 
   <!--JavaScript-->
-
+  <script src="movieSelection.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

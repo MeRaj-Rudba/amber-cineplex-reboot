@@ -1,0 +1,38 @@
+.ticket-container{
+    margin-top: 125px;
+	border-radius: 10px;
+}
+.ticket{
+    height: 400px;
+    
+}
+.ticket-head{
+    text-align: center;
+    border-bottom: 1px solid white;
+}
+.ticket-body{
+    
+    height: 300px;
+    margin-top: 50px;
+}
+.ticket-card{
+    border:1px solid darkgray ;
+    padding: 20px;
+    border-radius: 10px;
+    height: 400px;
+    
+}
+.ticket-table tr{
+    
+    margin: 20px;
+}
+.ticket-table {
+    width: 100%;
+   
+}
+.ticket-footer{
+    margin-top: 50px;
+}
+.caution{
+    color: black;
+}

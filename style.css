@@ -198,7 +198,10 @@ footer{
 	padding: 20px;
 }
 /*Booking Area Ends*/
-
+.label-input{
+	border: none;
+	background-color: none;
+}
 
 
 
