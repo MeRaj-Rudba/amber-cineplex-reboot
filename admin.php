@@ -160,7 +160,7 @@ CloseCon($conn);
         <div class="navbar-nav">
           <a class="nav-item nav-link active" href="index.php">Home <span class="sr-only">(current)</span></a>
           <a class="nav-item nav-link" href="index.php#schedule">Schedule</a>
-          <a class="nav-item nav-link" href="index.php#">Pricing</a>
+          
           <a class="nav-item nav-link" href="booking.php">Booking</a>
           <a class="nav-item nav-link" href="index.php#upcoming">Upcoming</a>
           <a class="nav-item nav-link" href="index.php#">Contact Us</a>

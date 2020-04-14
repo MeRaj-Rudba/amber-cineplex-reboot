@@ -9,7 +9,7 @@ $result = mysqli_query($conn, $sqlCheck);
 $rowCount = "";
 $status = "";
 $rowOfCheck = "";
-
+$currentUser=$_SESSION['username'];
 $showDate = "";
 
 $price = "";
@@ -55,6 +55,8 @@ if (isset($_POST['purchase'])) {
             $time = 'show_3';
         }
         
+        $price= $rowOfCheck['price'];
+        $amount=$price*$quantity;
 
         $sqlTicketCheck = "SELECT * FROM schedule WHERE theatre = '$theatreName'
         AND date ='$showDate'
@@ -69,19 +71,38 @@ if (isset($_POST['purchase'])) {
             //$msg = "Hall already exists with the same name!";
             $ticketAvailability = "True";
             $rowOfSchedule = mysqli_fetch_assoc($result);
+            $previousSeat= $rowOfSchedule[$time];
+            $newSeat=$previousSeat-$quantity;
+            $today= date("Y-m-d");
+            $sqlToPurchase="INSERT INTO purchase (username, mv_name, ticket_count, total_amount, purchase_date)
+            VALUES ('$currentUser','$movieName','$quantity','$amount','$today');";
+            $sqlToSchedule="UPDATE schedule
+            SET $time = '$newSeat' WHERE theatre = '$theatreName'
+            AND date = '$showDate';";
+
+            mysqli_query($conn, $sqlToSchedule);
+            mysqli_query($conn, $sqlToPurchase);
+
+
+
+
+
+
             
             $_SESSION['movieName'] = $movieName;
             $_SESSION['theatreName'] = $theatreName;
             $_SESSION['showDate'] = $showDate;
             $_SESSION['showTime'] = $showTime;
             $_SESSION['quantity'] = $quantity;
+            $_SESSION['price'] = $price;
+            $_SESSION['amount'] = $amount;
             header("Location: ticket.php");
             
 
 
 
         } else {
-            $ticketAvailability = "False";
+            header("Location: housefull.php");
         }
         
     }

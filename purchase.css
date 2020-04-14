@@ -3,7 +3,7 @@
 	border-radius: 10px;
 }
 .ticket{
-    height: 400px;
+    height: 450px;
     
 }
 .ticket-head{
@@ -12,8 +12,8 @@
 }
 .ticket-body{
     
-    height: 300px;
-    margin-top: 50px;
+    height: 350px;
+    margin-top: 30px;
 }
 .ticket-card{
     border:1px solid darkgray ;
@@ -31,8 +31,11 @@
    
 }
 .ticket-footer{
-    margin-top: 50px;
+   
 }
 .caution{
     color: black;
+}
+.housefull{
+    margin-top: 400px;
 }
