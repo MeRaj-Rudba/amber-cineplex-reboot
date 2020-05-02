@@ -66,11 +66,65 @@ include 'databaseQuery.php';
     </nav>
 
     <div class="container carousel-container ">
-       <h1>This is notice section</h1>
+        <h1>This is notice section</h1>
+        <?php
+        $conn = OpenCon();
+
+        $sqlMovieCheck = "SELECT * FROM notice ";
+        $result = mysqli_query($conn, $sqlMovieCheck);
+        $rowCount = "";
+        $searchName = "";
+
+        if ($result) {
+            // it return number of rows in the table. 
+            $rowCount = mysqli_num_rows($result);
+        }
+
+
+        if ($rowCount < 1) {
+            echo '<h3>No Notice to show</h3>';
+        } else {
+
+            while ($row = mysqli_fetch_assoc($result)) {
+
+                echo '
+                   
+                   <div  class="card ">
+                   
+                     <div  class="card-body">
+                       <h3 class="card-title">' . $row['title'] . '</h3>
+                       <h5 class="card-text"><b>Date : </b>' . $row['date'] . '</h5>
+                       <h5 class="card-text"><b>Posted By : </b>' . $row['post_by'] . '</h5>
+                       <p class="card-text">' . $row['post_details'] . '</p>';
+                if ($_SESSION["username"] === 'Admin') {
+                    echo '<button id="' . $row['title'] . '" onclick="noticeSelect(this.id);" class="ghost">Delete</button>';
+                }
+
+
+
+
+                echo '
+                       </div>
+                    </div>
+                   
+                   ';
+            }
+        }
+
+        CloseCon($conn);
+
+
+        ?>
 
     </div>
 
+    <script>
+        function noticeSelect(notice) {
+            
+            window.location.href = "dataLoad.php?noticeToDelete=" + notice;
 
+        }
+    </script>
 </body>
 
 </html>

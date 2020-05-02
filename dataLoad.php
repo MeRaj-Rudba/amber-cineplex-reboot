@@ -6,6 +6,12 @@
         header("Location: booking.php");
     
     }
+    elseif (isset($_GET["noticeToDelete"])) {
+        $noticeTitleToDelete=$_GET["noticeToDelete"];
+        $_SESSION['noticeToDelete'] = $noticeTitleToDelete;
+        header("Location: deleteNotice.php");
+    
+    }
 
 
 

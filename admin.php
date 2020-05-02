@@ -140,8 +140,11 @@ if (isset($_POST['add-theatre'])) {
     mysqli_query($conn, $sqlUpdate);
     $msg = "Change Saved!";
   }
-} elseif (isset($_POST['post-notice'])) {
+} 
+
+elseif (isset($_POST['post-notice'])) {
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $postTitle = $_POST['post-title'];
     $postText = $_POST['post-text'];
     $postDate =  date("Y-m-d");;
@@ -151,8 +154,14 @@ if (isset($_POST['add-theatre'])) {
 
     $sqlAddPost = "INSERT INTO notice (post_by, date, title, post_details)
         VALUES ('$postBy','$postDate','$postTitle','$postText');";
-    mysqli_query($conn, $sqlAddPost);
-    $msg = "Post Successful!";
+    
+    if(mysqli_query($conn, $sqlAddPost)){
+      $msg = "Post Successful!";
+    }
+    else{
+      $msg = mysqli_error($conn);
+    }
+    
   }
 }
 
