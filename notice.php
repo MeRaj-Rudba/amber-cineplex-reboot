@@ -1,19 +1,20 @@
 <?php
 session_start();
-
+include 'config.php';
+include 'databaseQuery.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amber Cineplex | Housefull</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="purchase.css">
+    <title>Amber Cineplex | Notice </title>
 </head>
 
 <body>
@@ -27,7 +28,7 @@ session_start();
                 <div class="navbar-nav">
                     <a class="nav-item nav-link active" href="index.php">Home <span class="sr-only">(current)</span></a>
                     <a class="nav-item nav-link" href="index.php#schedule">Schedule</a>
-                    
+
                     <a class="nav-item nav-link" href="notice.php">Notice</a>
                     <a class="nav-item nav-link" href="index.php#upcoming">Upcoming</a>
                     <a class="nav-item nav-link" href="index.php#">Contact Us</a>
@@ -38,9 +39,9 @@ session_start();
 
 
                         echo '
-                <div class="media">
-                    <img class="mr-3 placeholder-image"  src="images/placeholder.jpg" alt="Generic placeholder image">
-                    <div class="media-body">';
+              <div class="media">
+                  <img class="mr-3 placeholder-image"  src="images/placeholder.jpg" alt="Generic placeholder image">
+                  <div class="media-body">';
                         if ($_SESSION["username"] === 'Admin') {
                             # code...
                             echo '<a class="nav-item nav-link" href="admin.php">Welcome ' . $_SESSION["username"] . '</a>';
@@ -51,9 +52,9 @@ session_start();
 
 
                         echo '</div>
-                </div>
-                
-                ';
+              </div>
+              
+              ';
                     }
 
 
@@ -63,10 +64,12 @@ session_start();
             </div>
         </div>
     </nav>
-    <div class=" justify-content-center container carousel-container ">
-        <h1 class="p-2">Sorry we've ran out of seats you have requested!</h1><br>
-        <h4 class="p-2">You can change the quantity or select another show time</h4>
+
+    <div class="container carousel-container ">
+       <h1>This is notice section</h1>
+
     </div>
+
 
 </body>
 

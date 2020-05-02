@@ -96,7 +96,7 @@ if (isset($_POST['add-theatre'])) {
       $msg = "Movie added to schedule successfully!";
     }
   }
-} elseif (isset($_POST['add-movie '])) {
+} elseif (isset($_POST['add-movie'])) {
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mvName = $_POST['new-movie-name'];
     $director = $_POST['director'];
@@ -106,6 +106,7 @@ if (isset($_POST['add-theatre'])) {
     $cast = $_POST['cast'];
     $poster = $_POST['poster'];
     $status = $_POST['status'];
+    $banner = $_POST['banner'];
 
 
 
@@ -117,19 +118,44 @@ if (isset($_POST['add-theatre'])) {
     }
     if ($rowCountOfPass > 1) {
       $msg = "Movie Already Exist!";
-      $sql = "UPDATE movies
-      SET status = '$status'
-      WHERE mv_name = '$mvName';";
-      mysqli_query($conn, $sql);
-      $msg = "Movie Status updated successfully!";
     } else {
-      $sql = "INSERT INTO movies (mv_name, director, genre, release_date, runtime, cast, poster)
-                    VALUES ('$mvName','$director','$genre','$releaseDate','$runtime','$cast','$poster');";
+      $sql = "INSERT INTO movies (mv_name, director, genre, release_date, runtime, cast, poster,status,banner)
+                    VALUES ('$mvName','$director','$genre','$releaseDate','$runtime','$cast','$poster','$status','$banner');";
       mysqli_query($conn, $sql);
       $msg = "Movie added to successfully!";
     }
   }
+} elseif (isset($_POST['changeStatus'])) {
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $movieName = $_POST['movieName'];
+    $status = $_POST['changedStatus'];
+
+
+
+    $sqlUpdate = "UPDATE movies
+    SET status = '$status',
+        
+    WHERE mv_name = '$movieName';";
+
+    mysqli_query($conn, $sqlUpdate);
+    $msg = "Change Saved!";
+  }
+} elseif (isset($_POST['post-notice'])) {
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $postTitle = $_POST['post-title'];
+    $postText = $_POST['post-text'];
+    $postDate =  date("Y-m-d");;
+    $postBy = $_SESSION["username"];
+
+
+
+    $sqlAddPost = "INSERT INTO notice (post_by, date, title, post_details)
+        VALUES ('$postBy','$postDate','$postTitle','$postText');";
+    mysqli_query($conn, $sqlAddPost);
+    $msg = "Post Successful!";
+  }
 }
+
 
 
 
@@ -145,6 +171,7 @@ CloseCon($conn);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Amber Cineplex | <?php echo $_SESSION["username"]; ?></title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="profile.css">
 </head>
@@ -160,8 +187,8 @@ CloseCon($conn);
         <div class="navbar-nav">
           <a class="nav-item nav-link active" href="index.php">Home <span class="sr-only">(current)</span></a>
           <a class="nav-item nav-link" href="index.php#schedule">Schedule</a>
-          
-          <a class="nav-item nav-link" href="booking.php">Booking</a>
+
+          <a class="nav-item nav-link" href="notice.php">Notice</a>
           <a class="nav-item nav-link" href="index.php#upcoming">Upcoming</a>
           <a class="nav-item nav-link" href="index.php#">Contact Us</a>
           <?php
@@ -223,6 +250,155 @@ CloseCon($conn);
   <div class="container container2 title-border">
     <h1 class="notification"><?php echo $msg; ?> </h1>
   </div>
+  <div class="container carousel-container ">
+    <div class="container container2 title-border">
+      <h1>Theaters</h1>
+    </div>
+    <div class="card-deck justify-content-center w-100">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-body d-flex justify-content-between">
+            <?php
+            $conn = OpenCon();
+            $result = getResultAll($conn, 'theatre');
+            if ($result) {
+              // it return number of rows in the table. 
+              $rowCount = mysqli_num_rows($result);
+            }
+            if ($rowCount < 1) {
+              echo '<div class="container container2 title-border">
+                    <h4>No Theatres Yet!</h4>
+                  </div>';
+            } else {
+              echo
+                '
+                  <table class="table table-hover theme-bg">
+                    <thead>
+                      <tr>
+                        <th scope="col">SL</th>
+                        <th scope="col">Theatre Name</th>
+                        <th scope="col">Capacity</th>
+                      </tr>
+                    </thead>
+                  ';
+              $sl = 1;
+              while ($row = mysqli_fetch_assoc($result)) {
+
+
+                echo
+                  '
+                  
+                      <tbody>
+                        <tr>
+                          <th scope="row">' . $sl . '</th>
+                          <td>' . $row["theatre_name"] . '</td>
+                          <td>' . $row["capacity"] . '</td>
+                          
+                        </tr>
+                      </tbody>';
+
+                $sl++;
+              }
+              echo '</table>';
+            }
+            CloseCon($conn);
+            ?>
+          </div>
+          <div class="card-footer">
+            <button id="addTheatreButton" onclick="addTheatre()" class="ghost">Add Theatre</button>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- End of Hall-->
+
+
+  <!-- Add Theatre hidden-->
+  <div style="display: none;" id="change-panel" class="change-password-panel container carousel-container ">
+    <div class="container container2 title-border">
+      <h1>Add Theatre</h1>
+    </div>
+    <form action="admin.php" method="post">
+      <div class="card-deck justify-content-center w-100">
+        <div class="card">
+
+          <div class="card-body">
+            <br>
+            <br>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="">Theatre Name</span>
+              </div>
+              <input name="theatre-name" type="text" class="form-control">
+
+            </div>
+            <br>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="">Time of 1st show</span>
+              </div>
+              <input name="time1" type="text" class="form-control">
+
+            </div>
+            <br>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="">Time of 2nd show</span>
+              </div>
+              <input name="time2" type="text" class="form-control">
+
+            </div>
+            <br>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="">Time of 3rd show</span>
+              </div>
+              <input name="time3" type="text" class="form-control">
+
+            </div>
+            <br>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="">Capacity</span>
+              </div>
+              <input name="capacity" type="number" class="form-control">
+
+            </div>
+            <br>
+          </div>
+          <div class="card-footer">
+
+            <button class="ghost">Cancel</button></a>
+            <button type="submit" name="add-theatre" class="ghost">Confirm</button>
+
+          </div>
+        </div>
+
+      </div>
+
+
+    </form>
+  </div>
+  <!-- Add Theatre hidden-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <!-- Movie Panel-->
 
@@ -293,37 +469,24 @@ CloseCon($conn);
     <br>
     <div class="card-deck justify-content-center w-100">
       <div class="card">
-        <div class="card-footer">
-          
-          <button onclick="showSchedule()" id="addScheduleButton" class="ghost">Add Schedule</button>
-          <button onclick="showAddMovie()" id="addMovieButton" class="ghost">Add Movie</button>
-          <button onclick="showStatus()" id="addStatus" class="ghost">Add Status</button>
+        <br>
+        <div class="card-body d-flex justify-content-around">
+          <button onclick="showPost()" id="addPost" class=" ghost">Add Post</button>
+          <button onclick="showSchedule()" id="addScheduleButton" class=" ghost">Add Schedule</button>
+          <button onclick="showAddMovie()" id="addMovieButton" class=" ghost">Add Movie</button>
+          <button onclick="showStatus()" id="addStatus" class=" ghost">Change Status</button>
+
         </div>
+
       </div>
 
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Add to schedule hidden-->
-    <div style="display: none;" id="add-schedule" class=" container carousel-container ">
+    <!--Post Start-->
+    <div style="display: none;" id="show-post" class=" container carousel-container ">
       <div class="container container2 title-border">
-        <h1>Add Movie to Schedule</h1>
+        <h1>Post Something</h1>
       </div>
+
       <form action="admin.php" method="post">
         <div class="card-deck justify-content-center w-100">
           <div class="card">
@@ -333,54 +496,33 @@ CloseCon($conn);
               <br>
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <span class="input-group-text" id="">Movie Name</span>
+                  <span class="input-group-text" id="">Post Title</span>
                 </div>
-                <input name="movie-name" type="text" class="form-control">
+                <input name="post-title" type="text" class="form-control">
 
               </div>
               <br>
-
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="">Theatre</span>
-                </div>
-                <input name="inTheatre" type="text" class="form-control">
+              <br>
+              <div class="form-group">
+                <label for="post-text">Write Something</label>
+                <textarea name="post-text" id="post-text" class="form-control" rows="30"></textarea>
 
               </div>
-              <br>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="">Start Date</span>
-                </div>
-                <input name="startDate" type="date" class="form-control" min="<?php echo date("Y-m-d"); ?>" value="<?php echo date("Y-m-d"); ?>">
-
-              </div>
-              <br>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="">End Date</span>
-                </div>
-                <input name="endDate" type="date" class="form-control" min="<?php echo date("Y-m-d"); ?>" value="<?php echo date("Y-m-d"); ?>">
-
-              </div>
-              <br>
             </div>
             <div class="card-footer">
 
               <button class="ghost">Cancel</button></a>
-              <button type="submit" onclick="showAddSchedule();" name="add-schedule" class="ghost">Confirm</button>
+              <button type="submit" name="post-notice" class="ghost">Post</button>
 
             </div>
-          </div>
 
-        </div>
+          </div>
 
 
       </form>
     </div>
 
-    <!-- Add to schedule hidden-->
-
+    <!--Post ENd-->
 
     <!-- Add Movie hidden-->
     <div style="display: none;" id="add-movie" class=" container carousel-container ">
@@ -455,11 +597,18 @@ CloseCon($conn);
                   <label class="input-group-text" for="inputGroupSelect01">Status</label>
                 </div>
                 <select class="custom-select" id="inputGroupSelect01">
-                  <option selected>Choose...</option>
                   <option value="Now Showing">Now Showing</option>
                   <option value="Coming Soon">Coming Soon</option>
                   <option value="Expired">Expired</option>
                 </select>
+              </div>
+              <br>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="">Banner</span>
+                </div>
+                <input name="banner" type="text" class="form-control">
+
               </div>
               <br>
             </div>
@@ -479,7 +628,80 @@ CloseCon($conn);
     <!-- Add Movie hidden-->
 
     <!-- Add to status hidden-->
-    <div style="display: none;" id="add-status" class=" container carousel-container ">
+    <div style="display: none;" id="show-status" class=" container carousel-container ">
+      <div class="container container2 title-border">
+        <h1>Change status of a movie</h1>
+      </div>
+
+      <form action="admin.php" method="post">
+        <div class="card-deck justify-content-center w-100">
+          <div class="card">
+
+            <div class="card-body">
+              <br>
+              <br>
+              <?php
+              $conn = OpenCon();
+              $sqlMovieCheck = "SELECT * FROM movies";
+              $result = mysqli_query($conn, $sqlMovieCheck);
+              $rowCount = mysqli_num_rows($result);
+
+              if ($rowCount < 1) {
+                echo '<p>No movies yet!</p>';
+              } else {
+                echo '<div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Movies</label>
+                      </div>
+                            ';
+
+                echo '<select name="movieName" class="custom-select" id="inputGroupSelect01">';
+                while ($row = mysqli_fetch_assoc($result)) {
+                  echo '<option value="' . $row["mv_name"] . '">' . $row["mv_name"] . '</option>';
+                }
+
+
+
+
+                echo ' </select>
+                        <div style="width: 10px"></div>
+                        <div class="input-group-prepend">
+                          <label class="input-group-text" for="inputGroupSelect01">Status</label>
+                        </div>
+                        <select name="changedStatus" class="custom-select" id="inputGroupSelect01">
+                          
+                          <option value="Now Showing">Now Showing</option>
+                          <option value="Upcoming">Upcoming</option>
+                          <option value="Expired">Expired</option>
+                        </select>
+                      </div>';
+              }
+
+              CloseCon($conn);
+              ?>
+
+
+
+
+
+
+            </div>
+            <div class="card-footer">
+
+              <button class="ghost">Cancel</button></a>
+              <button type="submit" name="changeStatus" class="ghost">Confirm</button>
+
+            </div>
+
+          </div>
+
+
+      </form>
+    </div>
+
+    <!-- Status hidden-->
+    <!-- Add to schedule hidden-->
+    <div style="display: none;" id="add-schedule" class=" container carousel-container ">
       <div class="container container2 title-border">
         <h1>Add Movie to Schedule</h1>
       </div>
@@ -550,142 +772,8 @@ CloseCon($conn);
 
 
 
-
     <!-- Start of Hall-->
 
-    <div class="container carousel-container ">
-      <div class="container container2 title-border">
-        <h1>Theaters</h1>
-      </div>
-      <div class="card-deck justify-content-center w-100">
-        <div class="card">
-          <div class="card-body">
-            <div class="card-body d-flex justify-content-between">
-              <?php
-              $conn = OpenCon();
-              $result = getResultAll($conn, 'theatre');
-              if ($result) {
-                // it return number of rows in the table. 
-                $rowCount = mysqli_num_rows($result);
-              }
-              if ($rowCount < 1) {
-                echo '<div class="container container2 title-border">
-                    <h4>No Theatres Yet!</h4>
-                  </div>';
-              } else {
-                echo
-                  '
-                  <table class="table table-hover theme-bg">
-                    <thead>
-                      <tr>
-                        <th scope="col">SL</th>
-                        <th scope="col">Theatre Name</th>
-                        <th scope="col">Capacity</th>
-                      </tr>
-                    </thead>
-                  ';
-                $sl = 1;
-                while ($row = mysqli_fetch_assoc($result)) {
-
-
-                  echo
-                    '
-                  
-                      <tbody>
-                        <tr>
-                          <th scope="row">' . $sl . '</th>
-                          <td>' . $row["theatre_name"] . '</td>
-                          <td>' . $row["capacity"] . '</td>
-                          
-                        </tr>
-                      </tbody>';
-
-                  $sl++;
-                }
-                echo '</table>';
-              }
-              CloseCon($conn);
-              ?>
-            </div>
-            <div class="card-footer">
-              <button id="addTheatreButton" onclick="addTheatre()" class="ghost">Add Theatre</button>
-
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <!-- End of Hall-->
-
-
-    <!-- Add Theatre hidden-->
-    <div style="display: none;" id="change-panel" class="change-password-panel container carousel-container ">
-      <div class="container container2 title-border">
-        <h1>Add Theatre</h1>
-      </div>
-      <form action="admin.php" method="post">
-        <div class="card-deck justify-content-center w-100">
-          <div class="card">
-
-            <div class="card-body">
-              <br>
-              <br>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="">Theatre Name</span>
-                </div>
-                <input name="theatre-name" type="text" class="form-control">
-
-              </div>
-              <br>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="">Time of 1st show</span>
-                </div>
-                <input name="time1" type="text" class="form-control">
-
-              </div>
-              <br>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="">Time of 2nd show</span>
-                </div>
-                <input name="time2" type="text" class="form-control">
-
-              </div>
-              <br>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="">Time of 3rd show</span>
-                </div>
-                <input name="time3" type="text" class="form-control">
-
-              </div>
-              <br>
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="">Capacity</span>
-                </div>
-                <input name="capacity" type="number" class="form-control">
-
-              </div>
-              <br>
-            </div>
-            <div class="card-footer">
-
-              <button class="ghost">Cancel</button></a>
-              <button type="submit" onclick="showAddTheatre();" name="add-theatre" class="ghost">Confirm</button>
-
-            </div>
-          </div>
-
-        </div>
-
-
-      </form>
-    </div>
-    <!-- Add Theatre hidden-->
 
 
 
