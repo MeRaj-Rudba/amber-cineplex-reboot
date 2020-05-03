@@ -257,7 +257,7 @@ CloseCon($conn);
           
             echo '
                   
-                  <div  class="card ">
+                  <div  class="card movie-card ">
                   <img src="' . $row['poster'] . '" class="card-img-top" alt="...">
                     <div id="movie_card" class="card-body">
                       <h3 class="card-title">' . $row['mv_name'] . '</h3>
@@ -268,7 +268,7 @@ CloseCon($conn);
                       <p class="card-text"><b>Cast : </b>' . $row['cast'] . '</p>
                     </div>
                     <div class="card-footer">
-                      <button id="' . $row['mv_name'] . '" onclick="movieSelect(this.id);" class="ghost">Watch now</button>
+                      <button id="' . $row['mv_name'] . '" onclick="movieSelect(this.id);" class="">Watch now</button>
                     </div>
                     
                   </div>
@@ -319,7 +319,7 @@ CloseCon($conn);
           
             echo '
                   
-                  <div  class="card ">
+                  <div  class="card movie-card">
                   <img src="' . $row['poster'] . '" class="card-img-top" alt="...">
                     <div id="movie_card" class="card-body">
                       <h3 class="card-title">' . $row['mv_name'] . '</h3>

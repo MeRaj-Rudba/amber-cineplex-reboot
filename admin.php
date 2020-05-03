@@ -140,9 +140,7 @@ if (isset($_POST['add-theatre'])) {
     mysqli_query($conn, $sqlUpdate);
     $msg = "Change Saved!";
   }
-} 
-
-elseif (isset($_POST['post-notice'])) {
+} elseif (isset($_POST['post-notice'])) {
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $postTitle = $_POST['post-title'];
@@ -154,14 +152,12 @@ elseif (isset($_POST['post-notice'])) {
 
     $sqlAddPost = "INSERT INTO notice (post_by, date, title, post_details)
         VALUES ('$postBy','$postDate','$postTitle','$postText');";
-    
-    if(mysqli_query($conn, $sqlAddPost)){
+
+    if (mysqli_query($conn, $sqlAddPost)) {
       $msg = "Post Successful!";
-    }
-    else{
+    } else {
       $msg = mysqli_error($conn);
     }
-    
   }
 }
 
@@ -247,7 +243,7 @@ CloseCon($conn);
         <div class="card-body">
           <div class="card-body d-flex justify-content-between">
             <h4 class="card-title">Welcome to your panel</h4>
-            <a href="logout.php"><button class="ghost">Sign Out</button></a>
+            <a href="logout.php"><button class="">Sign Out</button></a>
           </div>
         </div>
       </div>
@@ -265,22 +261,22 @@ CloseCon($conn);
     </div>
     <div class="card-deck justify-content-center w-100">
       <div class="card">
-        <div class="card-body">
-          <div class="card-body d-flex justify-content-between">
-            <?php
-            $conn = OpenCon();
-            $result = getResultAll($conn, 'theatre');
-            if ($result) {
-              // it return number of rows in the table. 
-              $rowCount = mysqli_num_rows($result);
-            }
-            if ($rowCount < 1) {
-              echo '<div class="container container2 title-border">
+
+        <div class="card-body d-flex justify-content-between">
+          <?php
+          $conn = OpenCon();
+          $result = getResultAll($conn, 'theatre');
+          if ($result) {
+            // it return number of rows in the table. 
+            $rowCount = mysqli_num_rows($result);
+          }
+          if ($rowCount < 1) {
+            echo '<div class="container container2 title-border">
                     <h4>No Theatres Yet!</h4>
                   </div>';
-            } else {
-              echo
-                '
+          } else {
+            echo
+              '
                   <table class="table table-hover theme-bg">
                     <thead>
                       <tr>
@@ -290,12 +286,12 @@ CloseCon($conn);
                       </tr>
                     </thead>
                   ';
-              $sl = 1;
-              while ($row = mysqli_fetch_assoc($result)) {
+            $sl = 1;
+            while ($row = mysqli_fetch_assoc($result)) {
 
 
-                echo
-                  '
+              echo
+                '
                   
                       <tbody>
                         <tr>
@@ -306,18 +302,18 @@ CloseCon($conn);
                         </tr>
                       </tbody>';
 
-                $sl++;
-              }
-              echo '</table>';
+              $sl++;
             }
-            CloseCon($conn);
-            ?>
-          </div>
-          <div class="card-footer">
-            <button id="addTheatreButton" onclick="addTheatre()" class="ghost">Add Theatre</button>
-
-          </div>
+            echo '</table>';
+          }
+          CloseCon($conn);
+          ?>
         </div>
+        <div class="card-footer">
+          <button id="addTheatreButton" onclick="addTheatre()" class="">Add Theatre</button>
+
+        </div>
+
       </div>
 
     </div>
@@ -380,8 +376,8 @@ CloseCon($conn);
           </div>
           <div class="card-footer">
 
-            <button class="ghost">Cancel</button></a>
-            <button type="submit" name="add-theatre" class="ghost">Confirm</button>
+            <button class="">Cancel</button></a>
+            <button type="submit" name="add-theatre" class="">Confirm</button>
 
           </div>
         </div>
@@ -480,16 +476,19 @@ CloseCon($conn);
       <div class="card">
         <br>
         <div class="card-body d-flex justify-content-around">
-          <button onclick="showPost()" id="addPost" class=" ghost">Add Post</button>
-          <button onclick="showSchedule()" id="addScheduleButton" class=" ghost">Add Schedule</button>
-          <button onclick="showAddMovie()" id="addMovieButton" class=" ghost">Add Movie</button>
-          <button onclick="showStatus()" id="addStatus" class=" ghost">Change Status</button>
+          <button onclick="showPost()" id="addPost" class="">Add Post</button>
+          <button onclick="showSchedule()" id="addScheduleButton" class="">Add Schedule</button>
+          <button onclick="showAddMovie()" id="addMovieButton" class="">Add Movie</button>
+          <button onclick="showStatus()" id="addStatus" class="">Change Status</button>
 
         </div>
 
       </div>
 
     </div>
+    <br>
+    <br>
+    
     <!--Post Start-->
     <div style="display: none;" id="show-post" class=" container carousel-container ">
       <div class="container container2 title-border">
@@ -797,9 +796,7 @@ CloseCon($conn);
 
 
 
-  <footer>
-    <small>©2020. Amber Cineplex | Dhaka, Bangladesh</small>
-  </footer>
+  
 
 
   <script src="admin.js"></script>

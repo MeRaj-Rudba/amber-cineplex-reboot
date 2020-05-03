@@ -89,7 +89,7 @@ include 'databaseQuery.php';
 
                 echo '
                    
-                   <div  class="card ">
+                   <div  class="card notice-card">
                    
                      <div  class="card-body">
                        <h3 class="card-title">' . $row['title'] . '</h3>
