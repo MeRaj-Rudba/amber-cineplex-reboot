@@ -117,7 +117,7 @@ include 'databaseQuery.php';
             $movieRow = mysqli_fetch_assoc($resultMovie);
             echo '
                   
-                  <div  class="card booking-card ">
+                  <div  class="card booking-card box-shadow-card ">
                   <img src="' . $movieRow['poster'] . '" class="card-img-top" alt="...">
                     <div id="movie_card" class="card-body">
                       <h3 class="card-title">' . $movieRow['mv_name'] . '</h3>
@@ -151,7 +151,7 @@ include 'databaseQuery.php';
 
 
     <div class="container3 col-lg-6 col-md-6 col-sm-12">
-      <div class="card booking-card" id="selection-one">
+      <div class="card booking-card box-shadow-card" id="selection-one">
         <div class="card-body">
 
           <h1>Fill the Form to Book Your Ticket</h1>
@@ -198,7 +198,7 @@ include 'databaseQuery.php';
             <br>
 
 
-            <button name="purchase" type="submit" class="ghost">Submit</button>
+            <button name="purchase" type="submit" class="">Confirm</button>
           </form>
         </div>
       </div>

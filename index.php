@@ -43,7 +43,7 @@ CloseCon($conn);
         <div class="navbar-nav">
           <a class="nav-item nav-link active" href="index.php">Home <span class="sr-only">(current)</span></a>
           <a class="nav-item nav-link" href="index.php#schedule">Schedule</a>
-          
+
           <a class="nav-item nav-link" href="notice.php">Notice</a>
           <a class="nav-item nav-link" href="index.php#upcoming">Upcoming</a>
           <a class="nav-item nav-link" href="index.php#">Contact Us</a>
@@ -234,7 +234,7 @@ CloseCon($conn);
     <div class="container container2 title-border">
       <h1>Now Showing</h1>
     </div>
-    <div class="card-deck">
+    <div class="card-deck ">
       <?php
       $conn = OpenCon();
 
@@ -254,37 +254,40 @@ CloseCon($conn);
       } else {
 
         while ($row = mysqli_fetch_assoc($result)) {
-          
-            echo '
-                  
-                  <div  class="card movie-card ">
-                  <img src="' . $row['poster'] . '" class="card-img-top" alt="...">
-                    <div id="movie_card" class="card-body">
-                      <h3 class="card-title">' . $row['mv_name'] . '</h3>
-                      <p class="card-text"><b>Director : </b>' . $row['director'] . '</p>
-                      <p class="card-text"><b>Genre : </b> ' . $row['genre'] . '</p>
-                      <p class="card-text"><b>Release Date : </b>' . $row['release_date'] . '</p>
-                      <p class="card-text"><b>Runtime : </b>' . $row['runtime'] . '</p>
-                      <p class="card-text"><b>Cast : </b>' . $row['cast'] . '</p>
+
+          echo '
+                  <div class="mv-box float-left col-4 d-flex justify-content-around">
+
+                    <div  class=" card movie-card mb-5 ">
+                    <img src="' . $row['poster'] . '" class="card-img-top" alt="...">
+                      <div id="movie_card" class="card-body movie_card-body">
+                        <h3 class="card-title">' . $row['mv_name'] . '</h3>
+                        <p class="card-text"><b>Director : </b>' . $row['director'] . '</p>
+                        <p class="card-text"><b>Genre : </b> ' . $row['genre'] . '</p>
+                        <p class="card-text"><b>Release Date : </b>' . $row['release_date'] . '</p>
+                        <p class="card-text"><b>Runtime : </b>' . $row['runtime'] . '</p>
+                        <p class="card-text"><b>Cast : </b>' . $row['cast'] . '</p>
+                      </div>
+                      <div class="card-footer">
+                        <button id="' . $row['mv_name'] . '" onclick="movieSelect(this.id);" class="">Watch now</button>
+                      </div>
+                      
                     </div>
-                    <div class="card-footer">
-                      <button id="' . $row['mv_name'] . '" onclick="movieSelect(this.id);" class="">Watch now</button>
-                    </div>
-                    
                   </div>
                   
+                  
                   ';
-          }
         }
-      
+      }
+
       CloseCon($conn);
       ?>
 
 
 
 
-
     </div>
+  </div>
 
   </div>
   <!--Showing now Ends-->
@@ -316,29 +319,31 @@ CloseCon($conn);
       } else {
 
         while ($row = mysqli_fetch_assoc($result)) {
-          
-            echo '
-                  
-                  <div  class="card movie-card">
-                  <img src="' . $row['poster'] . '" class="card-img-top" alt="...">
-                    <div id="movie_card" class="card-body">
-                      <h3 class="card-title">' . $row['mv_name'] . '</h3>
-                      <p class="card-text"><b>Director : </b>' . $row['director'] . '</p>
-                      <p class="card-text"><b>Genre : </b> ' . $row['genre'] . '</p>
-                      <p class="card-text"><b>Release Date : </b>' . $row['release_date'] . '</p>
-                      <p class="card-text"><b>Runtime : </b>' . $row['runtime'] . '</p>
-                      <p class="card-text"><b>Cast : </b>' . $row['cast'] . '</p>
-                    </div>
-                    <div class="card-footer">
-                      <h3>Coming Soon</h3>
-                    </div>
-                    
+
+          echo '
+              <div class="mv-box float-left col-4 d-flex justify-content-around">
+
+                <div  class=" card movie-card mb-5 ">
+                <img src="' . $row['poster'] . '" class="card-img-top" alt="...">
+                  <div id="movie_card" class="card-body movie_card-body">
+                    <h3 class="card-title">' . $row['mv_name'] . '</h3>
+                    <p class="card-text"><b>Director : </b>' . $row['director'] . '</p>
+                    <p class="card-text"><b>Genre : </b> ' . $row['genre'] . '</p>
+                    <p class="card-text"><b>Release Date : </b>' . $row['release_date'] . '</p>
+                    <p class="card-text"><b>Runtime : </b>' . $row['runtime'] . '</p>
+                    <p class="card-text"><b>Cast : </b>' . $row['cast'] . '</p>
+                  </div>
+                  <div class="card-footer">
+                    <h3>Coming Soon</h3>
                   </div>
                   
+                </div>
+            </div>
+                  
                   ';
-          }
         }
-      
+      }
+
       CloseCon($conn);
       ?>
 

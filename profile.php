@@ -182,58 +182,7 @@ CloseCon($conn);
     </div>
   </nav>
 
-  <!--Change Password-->
 
-  <div style="display: none;" id="change-panel" class="container carousel-container ">
-    <div class="container container2 title-border">
-      <h1>Change Your Password</h1>
-    </div>
-    <form action="profile.php" method="post">
-      <div class="card-deck justify-content-center w-100">
-        <div class="card">
-
-          <div class="card-body">
-            <br>
-            <br>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="">Current Password</span>
-              </div>
-              <input name="currentPassword" type="password" class="form-control">
-
-            </div>
-            <br>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="">New Password</span>
-              </div>
-              <input name="newPassword" type="password" class="form-control">
-
-            </div>
-            <br>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="">Confirm Password</span>
-              </div>
-              <input name="confirmNewPassword" type="password" class="form-control">
-
-            </div>
-            <br>
-          </div>
-          <div class="card-footer">
-            <button class="ghost">Cancel</button>
-            <button type="submit" name="change-password" class="ghost">Confirm</button>
-
-          </div>
-        </div>
-
-      </div>
-
-
-    </form>
-  </div>
-
-  <!--Change Password Ends-->
   <!-- Profile option-->
 
   <div class="container carousel-container ">
@@ -244,15 +193,15 @@ CloseCon($conn);
       <h4 class="notification"><?php echo $msg; ?></h4>
     </div>
     <div class="card-deck justify-content-center w-100">
-      <div class="card">
+      <div class="card ">
 
         <div class="card-body">
 
           <div class="card-body d-flex justify-content-between">
             <h4 class="card-title">Username : <?php echo $_SESSION["username"]; ?></h4>
             <div>
-              <a><button id="changePasswordButton" onclick="changePassword();" class="ghost">Change Password</button></a>
-              <a href="logout.php"><button class="ghost">Sign Out</button></a>
+              <a><button id="changePasswordButton" onclick="changePasswordPanel()" class="">Change Password</button></a>
+              <a href="logout.php"><button class="">Sign Out</button></a>
             </div>
           </div>
 
@@ -315,6 +264,12 @@ CloseCon($conn);
     </div>
   </div>
 
+  <!--Change Password-->
+
+  <div id="changePasswordContainer">
+
+  </div>
+  <!--Change Password Ends-->
 
 
 
@@ -390,8 +345,9 @@ CloseCon($conn);
   </footer>
 
 
-  <script src="admin.js">
-
+  <script src="hiddenElements.js">
+    
+  
   </script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
