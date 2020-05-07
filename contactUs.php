@@ -1,8 +1,21 @@
 <?php
+
 session_start();
 include 'config.php';
 include 'databaseQuery.php';
+$conn = OpenCon();
+
+$sqlUserCheck = "SELECT * FROM now_showing";
+$result = mysqli_query($conn, $sqlUserCheck);
+$rowCount = "";
+
+
+
+
+
+CloseCon($conn);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,11 +26,13 @@ include 'databaseQuery.php';
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="profile.css">
-    <link rel="stylesheet" href="purchase.css">
-    <title>Amber Cineplex | Notice </title>
+    <title>Amber Cineplex | Contact Us </title>
 </head>
 
 <body>
+
+    <!--Navbar-Starts-->
+
     <nav class="navbar navbar-expand-lg navbar-default fixed-top theme-bg">
         <div class="container">
             <a class="navbar-brand" href="index.php">Amber Cineplex</a>
@@ -64,67 +79,41 @@ include 'databaseQuery.php';
             </div>
         </div>
     </nav>
+    <div class="container container2 carousel-container">
 
-    <div class="container carousel-container ">
-        <h1>This is notice section</h1>
-        <?php
-        $conn = OpenCon();
+        <div>
+            <div class="container container2 title-border">
+                <h1 class="new-title">Welcome</h1>
+                <p class="aboutUs ">We are Amber Cineplex.</p>
+                <p class="aboutUs ">This Website is to reach out to you beautiful people so that you can buy our movie tickets easily.</p>
+            </div>
+            <div class="container container2 quotes-box ">
 
-        $sqlMovieCheck = "SELECT * FROM notice ";
-        $result = mysqli_query($conn, $sqlMovieCheck);
-        $rowCount = "";
-        $searchName = "";
+                <p class="text-center quote ">"Cinema’s characteristic forte is its ability to capture and communicate the intimacies of the human mind"</p>
+                <p class="text-right writer">-Satyajit Ray</p>
+            </div>
 
-        if ($result) {
-            // it return number of rows in the table. 
-            $rowCount = mysqli_num_rows($result);
-        }
-
-
-        if ($rowCount < 1) {
-            echo '<h3>No Notice to show</h3>';
-        } else {
-
-            while ($row = mysqli_fetch_assoc($result)) {
-
-                echo '
-                   
-                   <div  class="card notice-card">
-                   
-                     <div  class="card-body">
-                       <h3 class="card-title">' . $row['title'] . '</h3>
-                       <h5 class="card-text"><b>Date : </b>' . $row['date'] . '</h5>
-                       <h5 class="card-text"><b>Posted By : </b>' . $row['post_by'] . '</h5>
-                       <p class="card-text">' . $row['post_details'] . '</p>';
-                if ($_SESSION["username"] === 'Admin') {
-                    echo '<button id="' . $row['title'] . '" onclick="noticeSelect(this.id);" class="ghost">Delete</button>';
-                }
-
-
-
-
-                echo '
-                       </div>
-                    </div>
-                   
-                   ';
-            }
-        }
-
-        CloseCon($conn);
-
-
-        ?>
-
+        </div>
     </div>
 
-    <script>
-        function noticeSelect(notice) {
-            
-            window.location.href = "dataLoad.php?noticeToDelete=" + notice;
+    <div class="container container2 carousel-container">
 
-        }
-    </script>
+        <div>
+            <div class="container container2 title-border">
+                <h1 class="new-title">Welcome</h1>
+                <p class="aboutUs ">We are Amber Cineplex.</p>
+                <p class="aboutUs ">This Website is to reach out to you beautiful people so that you can buy our movie tickets easily.</p>
+            </div>
+            <div class="container container2 quotes-box ">
+
+                <p class="text-center quote ">"Cinema’s characteristic forte is its ability to capture and communicate the intimacies of the human mind"</p>
+                <p class="text-right writer">-Satyajit Ray</p>
+            </div>
+
+        </div>
+    </div>
+
+
 </body>
 
 </html>

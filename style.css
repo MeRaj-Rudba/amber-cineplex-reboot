@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:200i,300,300i,400,500,500i,600|Roboto:400,400i,500,500i,700,700i,900&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Josefin+Slab|Jost&display=swap');;
 
 body {
   margin: 0;
@@ -159,6 +160,13 @@ button.ghost {
   text-align: center;
   padding: 5px 10px;
 }
+.quotes{
+  width: 40%;
+  color: #ff4b2b;
+  text-align: center;
+  padding: 5px 10px;
+}
+
 
 /*Table Starts*/
 table td,
@@ -205,4 +213,26 @@ footer {
 .label-input {
   border: none;
   background-color: none;
+}
+.quotes-box{
+  width: 60%;
+  margin-top: 200px;
+}
+.quote{
+  font-family: 'Josefin Slab', serif !important;
+  font-style: italic;
+  font-size: 30px;
+}
+.writer{
+  font-family: 'Josefin Slab', serif !important;
+  font-size: 30px;
+  font-weight: 700;
+}
+.aboutUs{
+  font-family: 'Josefin Slab', serif !important;
+  
+  font-size: 25px;
+}
+.new-title{
+  font-family: 'Jost', sans-serif;
 }
