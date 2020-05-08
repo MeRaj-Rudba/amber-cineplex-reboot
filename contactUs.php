@@ -47,7 +47,7 @@ CloseCon($conn);
 
                     <a class="nav-item nav-link" href="notice.php">Notice</a>
                     <a class="nav-item nav-link" href="index.php#upcoming">Upcoming</a>
-                    <a class="nav-item nav-link" href="contactUs.php">Contact Us</a>
+                    <a class="nav-item nav-link" href="contactUs.php">About Us</a>
                     <?php
                     if (!isset($_SESSION["username"])) {
                         echo '<a class="nav-item nav-link" href="login.php">Sign In</a>';
