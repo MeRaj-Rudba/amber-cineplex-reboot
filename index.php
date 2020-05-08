@@ -1,9 +1,19 @@
 <?php
-  session_start();
 
-  
+session_start();
+include 'config.php';
+include 'databaseQuery.php';
+$conn = OpenCon();
+
+$sqlUserCheck = "SELECT * FROM now_showing";
+$result = mysqli_query($conn, $sqlUserCheck);
+$rowCount = "";
 
 
+
+
+
+CloseCon($conn);
 ?>
 
 <!DOCTYPE html>
@@ -13,6 +23,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="profile.css">
   <title>Amber Cineplex | Home </title>
@@ -24,7 +35,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-default fixed-top theme-bg">
     <div class="container">
-      <a class="navbar-brand" href="#">Amber Cineplex</a>
+      <a class="navbar-brand" href="index.php">Amber Cineplex</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -32,29 +43,36 @@
         <div class="navbar-nav">
           <a class="nav-item nav-link active" href="index.php">Home <span class="sr-only">(current)</span></a>
           <a class="nav-item nav-link" href="index.php#schedule">Schedule</a>
-          <a class="nav-item nav-link" href="index.php#">Pricing</a>
-          <a class="nav-item nav-link" href="booking.php">Booking</a>
-          <a class="nav-item nav-link" href="index.php#upcoming">Upcoming</a>
-          <a class="nav-item nav-link" href="index.php#">Contact Us</a>
-          <?php
-            if (!isset($_SESSION["username"])) {
-              echo '<a class="nav-item nav-link" href="login.php">Sign In</a>';
-            }
-            else {
 
-              
-              echo '
+          <a class="nav-item nav-link" href="notice.php">Notice</a>
+          <a class="nav-item nav-link" href="index.php#upcoming">Upcoming</a>
+          <a class="nav-item nav-link" href="contactUs.php">About Us</a>
+          <?php
+          if (!isset($_SESSION["username"])) {
+            echo '<a class="nav-item nav-link" href="login.php">Sign In</a>';
+          } else {
+
+
+            echo '
               <div class="media">
                   <img class="mr-3 placeholder-image"  src="images/placeholder.jpg" alt="Generic placeholder image">
-                  <div class="media-body">
-                    <a class="nav-item nav-link" href="profile.php">Welcome ' . $_SESSION["username"] . '</a>
-                  </div>
+                  <div class="media-body">';
+            if ($_SESSION["username"] === 'Admin') {
+              # code...
+              echo '<a class="nav-item nav-link" href="admin.php">Welcome ' . $_SESSION["username"] . '</a>';
+            } else {
+              # code...
+              echo '<a class="nav-item nav-link" href="profile.php">Welcome ' . $_SESSION["username"] . '</a>';
+            }
+
+
+            echo '</div>
               </div>
               
               ';
-            }
-             
-                                                          
+          }
+
+
           ?>
 
         </div>
@@ -145,71 +163,64 @@
     </div>
     <div>
       <!--Schedule Data Table-->
-      <h2 class="date-h2">Friday,6 March,2020</h2>
-      <table class="table table-hover theme-bg">
-        <thead>
+      <h2 class="date-h2"><?php echo date("D, d M Y"); ?></h2>
+      <?php
+      $conn = OpenCon();
+      $sql = "SELECT * FROM theatre;";
 
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Birds of Prey</td>
-            <td>12.30PM</td>
-            <td>2.30PM</td>
-            <td>4.30PM</td>
-            <td>7.00PM</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Frozen 2</td>
-            <td>11.00AM</td>
-            <td>1.30PM</td>
-            <td>4.00PM</td>
-            <td>6.30PM</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Maleficent 2</td>
-            <td>12.00PM</td>
-            <td>NONE</td>
-            <td>3.00PM</td>
-            <td>6.00PM</td>
-          </tr>
-        </tbody>
-      </table>
-      <!--Day 2-->
-      <h2 class="date-h2">Saturday,7 March,2020</h2>
-      <table class="table table-hover theme-bg">
-        <thead>
+      $result = mysqli_query($conn, $sql);
+      $rowCount = "";
+      if ($result) {
+        // it return number of rows in the table. 
+        $rowCount = mysqli_num_rows($result);
+      }
+      if ($rowCount < 1) {
+        echo '<div class="container container2 title-border">
+                <h3>No Schedule to show!</h3>
+              </div>';
+      } else {
+        echo
+          '
+              <table class="table table-hover theme-bg">
+                <thead>
+                  <tr>
+                    <th scope="col">SL</th>
+                    <th scope="col">Movie</th>
+                    <th scope="col">Theatre</th>
+                    <th scope="col">First Show</th>
+                    <th scope="col">Second Show</th>
+                    <th scope="col">Third Show</th>
+                  </tr>
+                </thead>
+              ';
+        $sl = 1;
+        while ($row = mysqli_fetch_assoc($result)) {
+          echo
+            '
+              
+                  <tbody>
+                    <tr>
+                      <th scope="row">' . $sl . '</th>
+                      <td>' . $row['movie'] . '</td>
+                      <td>' . $row['theatre_name'] . '</td>
+                      <td>' . $row['show_1'] . '</td>
+                      <td>' . $row['show_2'] . '</td>
+                      <td>' . $row['show_3'] . '</td>
+                    </tr>
+                  </tbody>';
 
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Birds of Prey</td>
-            <td>12.30PM</td>
-            <td>2.30PM</td>
-            <td>4.30PM</td>
-            <td>7.00PM</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Frozen 2</td>
-            <td>11.00AM</td>
-            <td>1.30PM</td>
-            <td>4.00PM</td>
-            <td>6.30PM</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Maleficent 2</td>
-            <td>12.00PM</td>
-            <td>NONE</td>
-            <td>3.00PM</td>
-            <td>6.00PM</td>
-          </tr>
-        </tbody>
-      </table>
+          $sl++;
+        }
+        echo '</table>';
+      }
+      CloseCon($conn);
+      ?>
+
+
+
+
+
+
     </div>
 
   </div>
@@ -223,55 +234,60 @@
     <div class="container container2 title-border">
       <h1>Now Showing</h1>
     </div>
-    <div class="card-deck">
-      <div class="card">
-        <img src="images/poster5.jpeg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h3 class="card-title">Birds of prey</h3>
-          <p class="card-text"><b>Director:</b> Cathy Yan.</p>
-          <p class="card-text"><b>Genre:</b> Action, Adventure, Crime.</p>
-          <p class="card-text"><b>Release Date:</b> 7 February 2020. </p>
-          <p class="card-text"><b>Runtime:</b> 1h 49min.</p>
-          <p class="card-text"><b>Cast:</b> Margot Robbie,Mary Elizabeth Winstead,Jurnee Smollett-Bell,Ewan McGregor.</p>
-        </div>
-        <div class="card-footer">
-          <button class="ghost">Watch now</button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/poster2.webp" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h3 class="card-title">Maleficent 2</h3>
-          <p class="card-text"><b>Director:</b> Joachim Rønning.</p>
-          <p class="card-text"><b>Genre:</b> Adventure, Family, Fantasy.</p>
-          <p class="card-text"><b>Release Date:</b> 18 October 2019. </p>
-          <p class="card-text"><b>Runtime:</b> 1h 59min.</p>
-          <p class="card-text"><b>Cast:</b> Angelina Jolie, Elle Fanning, Harris Dickinson.</p>
+    <div class="card-deck ">
+      <?php
+      $conn = OpenCon();
 
-        </div>
-        <div class="card-footer">
-          <button class="ghost">Watch now</button>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/poster4.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h3 class="card-title">
-            <Frozen>Frozen 2
-          </h3>
-          <p class="card-text"><b>Director:</b> Chris Buck, Jennifer Lee.</p>
-          <p class="card-text"><b>Genre:</b> Action, Adventure, Crime.</p>
-          <p class="card-text"><b>Release Date:</b> 22 November 2019. </p>
-          <p class="card-text"><b>Runtime:</b> 1h 43min.</p>
-          <p class="card-text"><b>Cast:</b> Kristen Bell, Idina Menzel, Josh Gad.</p>
+      $sqlMovieCheck = "SELECT mv_name, director, genre, release_date, runtime, cast, poster FROM movies WHERE status = 'Now Showing'";
+      $result = mysqli_query($conn, $sqlMovieCheck);
+      $rowCount = "";
+      $searchName = "";
 
-        </div>
-        <div class="card-footer">
-          <button class="ghost">Watch now</button>
-        </div>
-      </div>
+      if ($result) {
+        // it return number of rows in the table. 
+        $rowCount = mysqli_num_rows($result);
+      }
+
+
+      if ($rowCount < 1) {
+        echo '<h3>No Movies to show</h3>';
+      } else {
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+          echo '
+                  <div class="mv-box float-left col-4 d-flex justify-content-around">
+
+                    <div  class=" card movie-card mb-5 ">
+                    <img src="' . $row['poster'] . '" class="card-img-top" alt="...">
+                      <div id="movie_card" class="card-body movie_card-body">
+                        <h3 class="card-title">' . $row['mv_name'] . '</h3>
+                        <p class="card-text"><b>Director : </b>' . $row['director'] . '</p>
+                        <p class="card-text"><b>Genre : </b> ' . $row['genre'] . '</p>
+                        <p class="card-text"><b>Release Date : </b>' . $row['release_date'] . '</p>
+                        <p class="card-text"><b>Runtime : </b>' . $row['runtime'] . '</p>
+                        <p class="card-text"><b>Cast : </b>' . $row['cast'] . '</p>
+                      </div>
+                      <div class="card-footer">
+                        <button id="' . $row['mv_name'] . '" onclick="movieSelect(this.id);" class="">Watch now</button>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  
+                  
+                  ';
+        }
+      }
+
+      CloseCon($conn);
+      ?>
+
+
+
 
     </div>
+  </div>
 
   </div>
   <!--Showing now Ends-->
@@ -283,36 +299,56 @@
       <h1>Coming Soon</h1>
     </div>
     <div class="card-deck">
-      <div class="card">
-        <img src="images/poster3.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h3 class="card-title">Wonder Women 1984</h3>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-        <div class="card-footer">
-          <h3>Coming Soon</h3>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/poster1.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h3 class="card-title">No Time To die</h3>
-          <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        </div>
-        <div class="card-footer">
-          <h3>Coming Soon</h3>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/poster6.jpg" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h3 class="card-title">Fast & Furious 9</h3>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        </div>
-        <div class="card-footer">
-          <h3>Coming Soon</h3>
-        </div>
-      </div>
+      <!--PHP code here for dynamic-->
+      <?php
+      $conn = OpenCon();
+
+      $sqlMovieCheck = "SELECT mv_name, director, genre, release_date, runtime, cast, poster FROM movies WHERE status = 'Coming Soon'";
+      $result = mysqli_query($conn, $sqlMovieCheck);
+      $rowCount = "";
+      $searchName = "";
+
+      if ($result) {
+        // it return number of rows in the table. 
+        $rowCount = mysqli_num_rows($result);
+      }
+
+
+      if ($rowCount < 1) {
+        echo '<h3>No Movies to show</h3>';
+      } else {
+
+        while ($row = mysqli_fetch_assoc($result)) {
+
+          echo '
+              <div class="mv-box float-left col-4 d-flex justify-content-around">
+
+                <div  class=" card movie-card mb-5 ">
+                <img src="' . $row['poster'] . '" class="card-img-top" alt="...">
+                  <div id="movie_card" class="card-body movie_card-body">
+                    <h3 class="card-title">' . $row['mv_name'] . '</h3>
+                    <p class="card-text"><b>Director : </b>' . $row['director'] . '</p>
+                    <p class="card-text"><b>Genre : </b> ' . $row['genre'] . '</p>
+                    <p class="card-text"><b>Release Date : </b>' . $row['release_date'] . '</p>
+                    <p class="card-text"><b>Runtime : </b>' . $row['runtime'] . '</p>
+                    <p class="card-text"><b>Cast : </b>' . $row['cast'] . '</p>
+                  </div>
+                  <div class="card-footer">
+                    <h3>Coming Soon</h3>
+                  </div>
+                  
+                </div>
+            </div>
+                  
+                  ';
+        }
+      }
+
+      CloseCon($conn);
+      ?>
+
+
+
 
     </div>
 
@@ -330,7 +366,7 @@
 
 
   <!--JavaScript-->
-
+  <script src="movieSelection.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

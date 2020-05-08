@@ -4,7 +4,7 @@
     
     session_start();
     $reqUsername = $reqPassword = "";
-    $registrationUsername=$registrationPassword=$registrationConfirmPassword="";
+    $registrationUsernameInDB=$registrationUsername=$registrationPassword=$registrationConfirmPassword="";
 
     $error ="";
 
@@ -96,9 +96,12 @@
             $param_password = password_hash($registrationPassword, PASSWORD_DEFAULT);
             $sql = "INSERT INTO users (username, password,type)
                     VALUES ('$registrationUsername','$param_password','customer');";
-                    $error="Signed Up Successfully";
-
+            $today =date("Y-m-d"); 
+            $sqlInfo = "INSERT INTO user_info (username,full_name,email,phone,dob,gender)
+                    VALUES ('$registrationUsername','$registrationUsername','','','$today','');";        
             mysqli_query($conn, $sql);
+            mysqli_query($conn, $sqlInfo);
+            $error="Signed Up Successfully";
             }
         }
         CloseCon($conn);
@@ -115,6 +118,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="login.css">
     
     <title>Amber Cineplex | Log In</title>
@@ -127,7 +131,7 @@
                 <h1>Create Account</h1>
                 
                 <span>create an account with username and password</span>
-                <input name="new-username" type="text" placeholder="Username" required />
+                <input name="new-username" type="text" value="<?php echo $registrationUsername;?>" placeholder="Username" required />
                 <input name="new-password" type="password" placeholder="Password" required/>
                 <input name="new-confirm-password" type="password" placeholder="Confirm Password" required />
                 <button name="sign-up" type="submit">Sign Up</button>
@@ -139,7 +143,7 @@
                 <h1>Sign in</h1>
                 
                 <span>using your account</span>
-                <input type="text" name="username" placeholder="Username" required />
+                <input type="text" name="username"  value="<?php echo $reqUsername;?>" placeholder="Username" required />
                 <input type="password" name="password" placeholder="Password" required />
                 <a href="#">Forgot your password?</a>
                 <button name="sign-in" type="submit">Sign In</button>

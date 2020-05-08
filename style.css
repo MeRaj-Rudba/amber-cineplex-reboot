@@ -1,204 +1,301 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway:200i,300,300i,400,500,500i,600|Roboto:400,400i,500,500i,700,700i,900&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Raleway:200i,300,300i,400,500,500i,600|Roboto:400,400i,500,500i,700,700i,900&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Josefin+Slab|Jost&display=swap");
 
-
-
-body{
-    margin: 0;
-    padding: 0;
-    background-color: white;
-	color: #FF416C ;
-	font-family: 'Roboto', sans-serif;
-	font-weight: 500;
-	/*height: 100%;*/
-
+body {
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  color: #ff416c;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  /*height: 100%;*/
 }
-h1{
-	font-family: 'Roboto', sans-serif;
-	font-weight: 700;
+h1 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
 }
-h3{
-	font-family: 'Roboto', sans-serif;
-	font-weight: 900;
+h3 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 900;
 }
-p{
-	font-family: 'Raleway', sans-serif;
-	font-weight: 300;
-	color: white;
+p {
+  font-family: "Raleway", sans-serif;
+  font-weight: 300;
+  color: black;
 }
-b{
-	font-weight: 900;
+b {
+  font-weight: 900;
 }
-a{
-	text-decoration: none !important;
+a {
+  text-decoration: none !important;
 }
 /*Card Starts*/
-.card{
-	/*background: linear-gradient(45deg, #FF4B2B, #FF416C);*/
-    border: none;
-    border-radius: 10px;
-    padding-bottom: 10px;
-    margin-bottom: 30px;
-    background: #FF416C;
-	background: -webkit-linear-gradient(to bottom, #FF4B2B, #FF416C);
-	background: linear-gradient(to bottom, #FF4B2B, #FF416C);
-    color: white;
-    /*box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
+.card {
+  /*background: linear-gradient(45deg, #FF4B2B, #FF416C);*/
+
+  border-radius: 10px;
+
+  margin-bottom: 30px;
+
+  /*box-shadow: 0 14px 28px rgba(0,0,0,0.25), 
 			0 10px 10px rgba(0,0,0,0.22);*/
 }
-.card-footer{
-    text-align: center;
-    border-top: none;
-    
+
+.card-footer {
+  text-align: center;
 }
-.card img{
-    border-radius: 10px 10px 0px 0px;
-    height: 60%;
+.card img {
+  border-radius: 10px 10px 0px 0px;
+  height: 60%;
+}
+.movie-card {
+  padding: 0px;
+}
+.movie_card-body {
+  height: 40%;
+}
+.movie-card img {
+  height: 60%;
+}
+.mv-box {
+  padding: 0px;
 }
 
-
+.movie-card:hover {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+.notice-card {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
 /*Card Ends*/
 
-.theme-bg{
-	
-	background: #FF416C;
-	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C);
-	
-	
+.theme-bg {
+  background: #ff416c;
+  background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
 }
-.date-h2{
-	margin-top: 50px;
-	margin-bottom: 30px;
+.date-h2 {
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+.notification {
+  color: black;
 }
 
 /*Navbar Starts*/
-.navbar-default{
-	background: #FF416C;
-	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C);
-	color: white;
-
-		
+.navbar-default {
+  background: #ff416c;
+  background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  color: white;
 }
 
-.navbar-brand{
-	color: white;
-	font-weight: 900;
-	font-size: 25px;
+.navbar-brand {
+  color: white;
+  font-weight: 900;
+  font-size: 25px;
 }
-.navbar-brand:hover{
-	color: black;
-	
+.navbar-brand:hover {
+  color: black;
 }
-.nav-item a{
-	color: white;
-	font-family: 'Raleway', sans-serif;
-	font-weight: 400;
-	font-size: 18px;
-	padding-left: 50px;
-	padding-right: 50px;
-    
+.nav-item a {
+  color: white;
+  font-family: "Raleway", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  padding-left: 50px;
+  padding-right: 50px;
 }
-.nav-link{
-	color: white;
+.nav-link {
+  color: white;
 }
-.nav-link:hover{
-	color: black;
+.nav-link:hover {
+  color: black;
 }
-
 
 /*Navbar Ends*/
 
-
 /*Button Starts*/
 button {
-	border-radius: 20px;
-	border: 1px solid #FF4B2B;
-	background-color: #FF4B2B;
-	color: #FFFFFF;
-	font-size: 12px;
-	font-weight: bold;
-	padding: 12px 45px;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	transition: transform 80ms ease-in;
+  border-radius: 20px;
+  border: 1px solid #ff4b2b;
+  background-color: #ff4b2b;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 45px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
 }
 
 button:active {
-	transform: scale(0.95);
+  transform: scale(0.95);
 }
 
 button:focus {
-	outline: none;
+  outline: none;
 }
 
 button.ghost {
-	background-color: transparent;
-	border-color: #FFFFFF;
+  background-color: transparent;
+  border-color: #ffffff;
 }
-
 
 /*Button Ends*/
-.container2{
-    
-    margin-bottom: 100px;
+.container2 {
+  margin-bottom: 100px;
 }
-.carousel-container{
-	margin-top: 125px;
-	border-radius: 10px;
+.carousel-container {
+  margin-top: 125px;
+  border-radius: 10px;
 }
-.carousel-item img{
-	border-radius: 10px;
+.carousel-item img {
+  border-radius: 10px;
 }
-.title-border{
-	border-bottom: 3px   #FF4B2B solid ;
-	width: 40%;
-    color:  #FF4B2B;
-    text-align: center;
-	padding: 5px 10px;
+.title-border {
+  border-bottom: 3px #ff4b2b solid;
+  width: 40%;
+  color: #ff4b2b;
+  text-align: center;
+  padding: 5px 10px;
 }
-
+.quotes {
+  width: 40%;
+  color: #ff4b2b;
+  text-align: center;
+  padding: 5px 10px;
+}
 
 /*Table Starts*/
-table td,th{
-	color: white;
+table td,
+th {
+  color: white;
 }
 /*Table Ends*/
-    
 
-
-
-.full-container{
-    width: 100%;
-    margin-left: 0;
-    margin-right: 0;
+.full-container {
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 }
-footer{
-	text-align: center;
-	color:  #FF4B2B;
+footer {
+  text-align: center;
+  color: #ff4b2b;
 }
-
+.housefull {
+  margin-top: 400px;
+}
 
 /*Booking Area Start*/
-.booking{
-	height: 100%;
+.booking {
+  height: 100%;
 }
-.booking-card{
-	min-height: 75%;
-	margin-left:15% ;
-	margin-right:15% ;
-	margin-top: 150px;
-	height: 80%;
-	
+.box-shadow-card {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
-.booking-card img{
-	height: 60%;
+.booking-card {
+  min-height: 75%;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 150px;
+  height: 80%;
 }
-#selection-one{
-	padding: 20px;
+.booking-card img {
+  height: 60%;
+}
+#selection-one {
+  padding: 20px;
 }
 /*Booking Area Ends*/
+.label-input {
+  border: none;
+  background-color: none;
+}
+.quotes-box {
+  width: 60%;
+  margin-top: 200px;
+}
+.quote {
+  font-family: "Josefin Slab", serif !important;
+  font-style: italic;
+  font-size: 40px;
+}
+.writer {
+  font-family: "Josefin Slab", serif !important;
+  font-size: 40px;
+  font-weight: 700;
+}
+.aboutUs {
+  font-family: "Josefin Slab", serif !important;
 
-
-
+  font-size: 25px;
+}
+.new-title {
+  font-family: "Jost", sans-serif;
+}
+.line-bar {
+  height: 2px;
+  width: 100%;
+  background-color: #ff4b2b;
+}
+.icons {
+  font-size: 20px;
+}
+.info {
+  font-family: "Josefin Slab", serif !important;
+  font-size: 20px;
+}
+.title-box {
+  margin-top: 150px;
+  margin-bottom: 100px;
+}
+.profile {
+  margin-bottom: 200px;
+}
+.bio-pic-card {
+  height: 300px;
+  width: 400px;
+}
+.bio-pic-card img {
+  height: 100%;
+}
+.top-of-article {
+  margin-bottom: 50px;
+}
+.bio-writings {
+  text-align: justify;
+}
+.bio-title {
+  font-family: "Jost", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+.bio-designation {
+  color: #ff416c;
+  font-family: "Josefin Slab", serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+.bio-writings {
+  font-family: "Jost", sans-serif;
+  font-size: 18px;
+}
+.info-bio {
+  font-family: "Jost", sans-serif;
+}
+.ticket-card{
+  background: #ff416c;
+  background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  color: white;
+  
+}
+.ticket-card p,h4{
+  
+  color: #ffffff;
+}
+.card-title{
+  color: black;
+}
 
