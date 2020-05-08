@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:200i,300,300i,400,500,500i,600|Roboto:400,400i,500,500i,700,700i,900&display=swap");
-@import url('https://fonts.googleapis.com/css?family=Josefin+Slab|Jost&display=swap');;
+@import url("https://fonts.googleapis.com/css?family=Josefin+Slab|Jost&display=swap");
 
 body {
   margin: 0;
@@ -48,16 +48,16 @@ a {
   border-radius: 10px 10px 0px 0px;
   height: 60%;
 }
-.movie-card{
+.movie-card {
   padding: 0px;
 }
-.movie_card-body{
+.movie_card-body {
   height: 40%;
 }
-.movie-card img{
+.movie-card img {
   height: 60%;
 }
-.mv-box{
+.mv-box {
   padding: 0px;
 }
 
@@ -160,13 +160,12 @@ button.ghost {
   text-align: center;
   padding: 5px 10px;
 }
-.quotes{
+.quotes {
   width: 40%;
   color: #ff4b2b;
   text-align: center;
   padding: 5px 10px;
 }
-
 
 /*Table Starts*/
 table td,
@@ -192,11 +191,10 @@ footer {
 .booking {
   height: 100%;
 }
-.box-shadow-card{
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22) ;
+.box-shadow-card {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 .booking-card {
-  
   min-height: 75%;
   margin-left: 15%;
   margin-right: 15%;
@@ -214,25 +212,75 @@ footer {
   border: none;
   background-color: none;
 }
-.quotes-box{
+.quotes-box {
   width: 60%;
   margin-top: 200px;
 }
-.quote{
-  font-family: 'Josefin Slab', serif !important;
+.quote {
+  font-family: "Josefin Slab", serif !important;
   font-style: italic;
-  font-size: 30px;
+  font-size: 40px;
 }
-.writer{
-  font-family: 'Josefin Slab', serif !important;
-  font-size: 30px;
+.writer {
+  font-family: "Josefin Slab", serif !important;
+  font-size: 40px;
   font-weight: 700;
 }
-.aboutUs{
-  font-family: 'Josefin Slab', serif !important;
-  
+.aboutUs {
+  font-family: "Josefin Slab", serif !important;
+
   font-size: 25px;
 }
-.new-title{
-  font-family: 'Jost', sans-serif;
+.new-title {
+  font-family: "Jost", sans-serif;
+}
+.line-bar {
+  height: 2px;
+  width: 100%;
+  background-color: #ff4b2b;
+}
+.icons {
+  font-size: 20px;
+}
+.info {
+  font-family: "Josefin Slab", serif !important;
+  font-size: 20px;
+}
+.title-box {
+  margin-top: 150px;
+  margin-bottom: 100px;
+}
+.profile {
+  margin-bottom: 200px;
+}
+.bio-pic-card {
+  height: 300px;
+  width: 400px;
+}
+.bio-pic-card img {
+  height: 100%;
+}
+.top-of-article {
+  margin-bottom: 50px;
+}
+.bio-writings {
+  text-align: justify;
+}
+.bio-title {
+  font-family: "Jost", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+.bio-designation {
+  color: #ff416c;
+  font-family: "Josefin Slab", serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+.bio-writings {
+  font-family: "Jost", sans-serif;
+  font-size: 18px;
+}
+.info-bio {
+  font-family: "Jost", sans-serif;
 }
