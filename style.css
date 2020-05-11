@@ -284,18 +284,26 @@ footer {
 .info-bio {
   font-family: "Jost", sans-serif;
 }
-.ticket-card{
+.ticket-card {
   background: #ff416c;
   background: -webkit-linear-gradient(to right, #ff4b2b, #ff416c);
   background: linear-gradient(to right, #ff4b2b, #ff416c);
   color: white;
-  
 }
-.ticket-card p,h4{
-  
+.ticket-card p,
+h4 {
   color: #ffffff;
 }
-.card-title{
+.card-title {
   color: black;
 }
-
+.page-link {
+  color: #ff416c;
+}
+.page-link:hover {
+  color: black;
+}
+.pagination {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
