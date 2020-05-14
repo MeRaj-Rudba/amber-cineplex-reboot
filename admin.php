@@ -180,6 +180,7 @@ CloseCon($conn);
   <title>Amber Cineplex | <?php echo $_SESSION["username"]; ?></title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/0aae940090.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="profile.css">
 </head>
@@ -193,12 +194,12 @@ CloseCon($conn);
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link " href="index.php">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="index.php#schedule">Schedule</a>
+                    <a class="nav-item nav-link active" href="index.php">Home <span class="sr-only">(current)</span></a>
+                    
                     
                     <a class="nav-item nav-link" href="notice.php">Notice</a>
-                    <a class="nav-item nav-link" href="index.php#upcoming">Upcoming</a>
-                    <a class="nav-item nav-link " href="contactUs.php">About Us</a>
+                    
+                    <a class="nav-item nav-link" href="contactUs.php">About Us</a>
                     <?php
                     if (!isset($_SESSION["username"])) {
                         echo '<a class="nav-item nav-link" href="login.php">Sign In</a>';
@@ -207,14 +208,14 @@ CloseCon($conn);
 
                         echo '
                 <div class="media">
-                    <img class="mr-3 placeholder-image"  src="images/placeholder.jpg" alt="Generic placeholder image">
+                    
                     <div class="media-body">';
                         if ($_SESSION["username"] === 'Admin') {
                             # code...
-                            echo '<a class="nav-item nav-link active" href="admin.php">Welcome ' . $_SESSION["username"] . '</a>';
+                            echo '<a class="nav-item nav-link" href="admin.php"><i class="fas fa-user-secret"></i> ' .$_SESSION["username"].'</a>';
                         } else {
                             # code...
-                            echo '<a class="nav-item nav-link" href="profile.php">Welcome ' . $_SESSION["username"] . '</a>';
+                            echo '<a class="nav-item nav-link" href="profile.php"><i class="fas fa-user"></i> ' .$_SESSION["username"].'</a>';
                         }
 
 
@@ -232,7 +233,6 @@ CloseCon($conn);
         </div>
 
 </nav>
-
   <!--Change Password-->
 
 
@@ -247,7 +247,7 @@ CloseCon($conn);
         <div class="card-body">
           <div class="card-body d-flex justify-content-between">
             <h4 class="card-title">Welcome to your panel</h4>
-            <a href="logout.php"><button class="">Sign Out</button></a>
+            <a href="logout.php"><button class="">Sign Out <i class="fas fa-sign-out-alt"></i></button></a>
           </div>
         </div>
       </div>
@@ -314,7 +314,7 @@ CloseCon($conn);
           ?>
         </div>
         <div class="card-footer">
-          <button id="addTheatreButton" onclick="addTheaterPanel()" class="">Add Theatre</button>
+          <button id="addTheatreButton" onclick="addTheaterPanel()" class=""><i class="fas fa-plus"></i> Add Theatre</button>
 
         </div>
 
@@ -381,7 +381,7 @@ CloseCon($conn);
         <div class="card-footer">
 
           <button class="">Cancel</button></a>
-          <button type="submit" name="add-theatre" class="">Confirm</button>
+          <button type="submit" name="add-theatre" class=""><i class="fas fa-check"></i> Confirm</button>
 
         </div>
       </div>
@@ -471,10 +471,10 @@ CloseCon($conn);
       <div class="card">
         <br>
         <div class="card-body d-flex justify-content-around">
-          <button onclick="showPost()" id="addPost" class="">Add Post</button>
-          <button onclick="showSchedule()" id="addScheduleButton" class="">Add Schedule</button>
-          <button onclick="showAddMovie()" id="addMovieButton" class="">Add Movie</button>
-          <button onclick="showStatus()" id="addStatus" class="">Change Status</button>
+          <button onclick="showPost()" id="addPost" class=""><i class="fas fa-plus"></i> Add Post</button>
+          <button onclick="showSchedule()" id="addScheduleButton" class=""><i class="fas fa-plus"></i> Add Schedule</button>
+          <button onclick="showAddMovie()" id="addMovieButton" class=""><i class="fas fa-plus"></i> Add Movie</button>
+          <button onclick="showStatus()" id="addStatus" class=""><i class="fas fa-exchange-alt"></i> Change Status</button>
 
         </div>
         <br>
@@ -517,7 +517,7 @@ CloseCon($conn);
           <div class="card-footer">
 
             <button class="">Cancel</button></a>
-            <button type="submit" name="post-notice" class="">Post</button>
+            <button type="submit" name="post-notice" class=""><i class="fas fa-check"></i> Post</button>
 
           </div>
 
@@ -621,7 +621,7 @@ CloseCon($conn);
           <div class="card-footer">
 
             <button class="">Cancel</button></a>
-            <button type="submit" onclick="showAddMovie();" name="add-movie" class="">Confirm</button>
+            <button type="submit" onclick="showAddMovie();" name="add-movie" class=""> <i class="fas fa-check"></i> Confirm</button>
 
           </div>
         </div>
@@ -695,7 +695,7 @@ CloseCon($conn);
           <div class="card-footer">
 
             <button class="">Cancel</button></a>
-            <button type="submit" name="changeStatusBtn" class="">Confirm</button>
+            <button type="submit" name="changeStatusBtn" class=""><i class="fas fa-check"></i> Confirm</button>
 
           </div>
 
@@ -755,7 +755,7 @@ CloseCon($conn);
           <div class="card-footer">
 
             <button class="">Cancel</button></a>
-            <button type="submit" onclick="showAddSchedule();" name="add-schedule" class="">Confirm</button>
+            <button type="submit" onclick="showAddSchedule();" name="add-schedule" class=""><i class="fas fa-check"></i> Confirm</button>
 
           </div>
         </div>

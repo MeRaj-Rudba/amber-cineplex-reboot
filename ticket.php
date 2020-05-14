@@ -11,6 +11,7 @@ include 'databaseQuery.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/0aae940090.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="profile.css">
     <link rel="stylesheet" href="purchase.css">
@@ -26,11 +27,11 @@ include 'databaseQuery.php';
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link " href="index.php">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="index.php#schedule">Schedule</a>
+                    <a class="nav-item nav-link active" href="index.php">Home <span class="sr-only">(current)</span></a>
+                    
                     
                     <a class="nav-item nav-link" href="notice.php">Notice</a>
-                    <a class="nav-item nav-link" href="index.php#upcoming">Upcoming</a>
+                    
                     <a class="nav-item nav-link" href="contactUs.php">About Us</a>
                     <?php
                     if (!isset($_SESSION["username"])) {
@@ -40,14 +41,14 @@ include 'databaseQuery.php';
 
                         echo '
                 <div class="media">
-                    <img class="mr-3 placeholder-image"  src="images/placeholder.jpg" alt="Generic placeholder image">
+                    
                     <div class="media-body">';
                         if ($_SESSION["username"] === 'Admin') {
                             # code...
-                            echo '<a class="nav-item nav-link" href="admin.php">Welcome ' . $_SESSION["username"] . '</a>';
+                            echo '<a class="nav-item nav-link" href="admin.php"><i class="fas fa-user-secret"></i> ' .$_SESSION["username"].'</a>';
                         } else {
                             # code...
-                            echo '<a class="nav-item nav-link" href="profile.php">Welcome ' . $_SESSION["username"] . '</a>';
+                            echo '<a class="nav-item nav-link" href="profile.php"><i class="fas fa-user"></i> ' .$_SESSION["username"].'</a>';
                         }
 
 

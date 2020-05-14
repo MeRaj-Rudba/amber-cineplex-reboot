@@ -130,6 +130,7 @@ CloseCon($conn);
   <title>Amber Cineplex | <?php echo $_SESSION["username"]; ?></title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <script src="https://kit.fontawesome.com/0aae940090.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="profile.css">
 </head>
@@ -143,11 +144,11 @@ CloseCon($conn);
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link " href="index.php">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="index.php#schedule">Schedule</a>
+                    <a class="nav-item nav-link active" href="index.php">Home <span class="sr-only">(current)</span></a>
+                    
                     
                     <a class="nav-item nav-link" href="notice.php">Notice</a>
-                    <a class="nav-item nav-link" href="index.php#upcoming">Upcoming</a>
+                    
                     <a class="nav-item nav-link" href="contactUs.php">About Us</a>
                     <?php
                     if (!isset($_SESSION["username"])) {
@@ -157,14 +158,14 @@ CloseCon($conn);
 
                         echo '
                 <div class="media">
-                    <img class="mr-3 placeholder-image"  src="images/placeholder.jpg" alt="Generic placeholder image">
+                    
                     <div class="media-body">';
                         if ($_SESSION["username"] === 'Admin') {
                             # code...
-                            echo '<a class="nav-item nav-link" href="admin.php">Welcome ' . $_SESSION["username"] . '</a>';
+                            echo '<a class="nav-item nav-link" href="admin.php"><i class="fas fa-user-secret"></i> ' .$_SESSION["username"].'</a>';
                         } else {
                             # code...
-                            echo '<a class="nav-item nav-link active" href="profile.php">Welcome ' . $_SESSION["username"] . '</a>';
+                            echo '<a class="nav-item nav-link" href="profile.php"><i class="fas fa-user"></i> ' .$_SESSION["username"].'</a>';
                         }
 
 
@@ -201,8 +202,8 @@ CloseCon($conn);
           <div class="card-body d-flex justify-content-between">
             <h4 class="card-title">Username : <?php echo $_SESSION["username"]; ?></h4>
             <div>
-              <a><button id="changePasswordButton" onclick="changePasswordPanel()" class="">Change Password</button></a>
-              <a href="logout.php"><button class="">Sign Out</button></a>
+              <a><button id="changePasswordButton" onclick="changePasswordPanel()" class=""><i class="fas fa-exchange-alt"></i> Change Password</button></a>
+              <a href="logout.php"><button class="">Sign Out <i class="fas fa-sign-out-alt"></i></button></a>
             </div>
           </div>
 
@@ -253,7 +254,7 @@ CloseCon($conn);
 
         <div class="card-footer">
           <h4><?php echo $change; ?></h4>
-          <button type="submit" name="update" class="ghost">Save</button>
+          <button type="submit" name="update" class="">Save</button>
 
 
         </div>
