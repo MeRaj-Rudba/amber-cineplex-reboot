@@ -307,3 +307,15 @@ h4 {
   margin-top: 50px;
   margin-bottom: 50px;
 }
+.nav-link{
+  color: #ff416c;
+}
+
+.admin-card-text{
+  
+  color: #ff4b2b !important;
+}
+.admin-card{
+ margin: 10px;
+  
+}

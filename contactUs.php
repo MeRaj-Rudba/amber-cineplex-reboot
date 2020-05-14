@@ -42,12 +42,12 @@ CloseCon($conn);
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-item nav-link " href="index.php">Home <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="index.php#schedule">Schedule</a>
+                    <a class="nav-item nav-link active" href="index.php">Home <span class="sr-only">(current)</span></a>
+                    
                     
                     <a class="nav-item nav-link" href="notice.php">Notice</a>
-                    <a class="nav-item nav-link" href="index.php#upcoming">Upcoming</a>
-                    <a class="nav-item nav-link active" href="contactUs.php">About Us</a>
+                    
+                    <a class="nav-item nav-link" href="contactUs.php">About Us</a>
                     <?php
                     if (!isset($_SESSION["username"])) {
                         echo '<a class="nav-item nav-link" href="login.php">Sign In</a>';
@@ -56,14 +56,14 @@ CloseCon($conn);
 
                         echo '
                 <div class="media">
-                    <img class="mr-3 placeholder-image"  src="images/placeholder.jpg" alt="Generic placeholder image">
+                    
                     <div class="media-body">';
                         if ($_SESSION["username"] === 'Admin') {
                             # code...
-                            echo '<a class="nav-item nav-link" href="admin.php">Welcome ' . $_SESSION["username"] . '</a>';
+                            echo '<a class="nav-item nav-link" href="admin.php"><i class="fas fa-user-secret"></i> ' .$_SESSION["username"].'</a>';
                         } else {
                             # code...
-                            echo '<a class="nav-item nav-link" href="profile.php">Welcome ' . $_SESSION["username"] . '</a>';
+                            echo '<a class="nav-item nav-link" href="profile.php"><i class="fas fa-user"></i> ' .$_SESSION["username"].'</a>';
                         }
 
 
@@ -110,13 +110,13 @@ CloseCon($conn);
                 <h1 class="text-center">Developer Team</h1>
             </div>
             <div class="profile d-flex justify-content-between">
-                <div class="col-4">
+                <div class="col-lg-4 col-12">
                     <div class="card bio-pic-card ">
                         <img class="card-img-top bio-pic" src="images/us/nowshin.jpg" alt="Card image cap">
 
                     </div>
                 </div>
-                <section class="biography col-6">
+                <section class="biography col-12 col-lg-6">
                     <article>
                         <div class="top-of-article">
                             <p class="bio-title">Nowshin Sabrin</p>
@@ -142,7 +142,7 @@ CloseCon($conn);
                 </section>
             </div>
             <div class="profile d-flex justify-content-between">
-                <section class="biography col-6">
+                <section class="biography col-12 col-lg-6">
                     <article>
                         <div class="top-of-article">
                             <p class="bio-title">Fahad Khandoker</p>
@@ -165,7 +165,7 @@ CloseCon($conn);
 
                     </article>
                 </section>
-                <div class="col-4">
+                <div class="col-lg-4 col-12">
                     <div class="card bio-pic-card">
                         <img class="card-img-top " src="images/us/fahad.jpg" alt="Card image cap">
 
@@ -175,13 +175,13 @@ CloseCon($conn);
             </div>
 
             <div class="profile d-flex justify-content-between">
-                <div class="col-4">
+                <div class="col-lg-4 col-12">
                     <div class="card bio-pic-card">
                         <img class="card-img-top " src="images/us/rudba.JPG" alt="Card image cap">
 
                     </div>
                 </div>
-                <section class="biography col-6">
+                <section class="biography col-12 col-lg-6">
                     <article>
                         <div class="top-of-article">
                             <p class="bio-title">MeRaj Rudba </p>
