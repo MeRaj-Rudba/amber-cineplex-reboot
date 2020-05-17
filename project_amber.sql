@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2020 at 03:17 PM
+-- Generation Time: May 17, 2020 at 04:55 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -51,8 +51,7 @@ INSERT INTO `movies` (`id`, `mv_name`, `director`, `genre`, `release_date`, `run
 (3, 'Frozen 2', 'Chris Buck, Jennifer Lee.', 'Action, Adventure, Crime.', '22 November 2019. ', '1h 43min', 'Kristen Bell, Idina Menzel, Josh Gad.', 'images/poster4.jpg', 'Now Showing', 'images/banner4.jpg'),
 (5, 'Wonder Woman 1984', 'Patty Jenkins', 'Action, Adventure, Fantasy.', '14 August 2020', 'unknown', 'Pedro Pascal, Gal Gadot, Connie Nielsen, Cris Pine.', 'images/poster3.jpg', 'Coming Soon', 'images/banner3.jpg'),
 (6, 'No Time to Die', 'Cary Joji Fukunaga', 'Action, Adventure, Thriller', '25 November 2020', '2h 43min', 'Ana de Armas, Daniel Craig, Léa Seydoux', 'images/poster1.jpg', 'Now Showing', 'images/banner1.jpg'),
-(7, 'F9', 'Justin Lin', 'Action, Adventure, Crime', ' 2 April 2021', '2h 25min', 'Vin Diesel, Charlize Theron, Michelle Rodriguez', 'images/poster6.jpg', 'Coming Soon', 'images/banner6.jpg'),
-(13, 'asdaw', 'asdwa', 'adaw', 'adwa', 'dawdaw', 'adwa', 'images/profile.jpg', 'Coming Soon', 'awd');
+(7, 'F9', 'Justin Lin', 'Action, Adventure, Crime', ' 2 April 2021', '2h 25min', 'Vin Diesel, Charlize Theron, Michelle Rodriguez', 'images/poster6.jpg', 'Coming Soon', 'images/banner6.jpg');
 
 -- --------------------------------------------------------
 
@@ -74,7 +73,10 @@ CREATE TABLE `notice` (
 
 INSERT INTO `notice` (`id`, `post_by`, `date`, `title`, `post_details`) VALUES
 (1, 'Admin', '2020-05-02', 'COVID-19', 'The virus that causes COVID-19 is mainly transmitted through droplets generated when an infected person coughs, sneezes, or exhales. These droplets are too heavy to hang in the air, and quickly fall on floors or surfaces.\r\nYou can be infected by breathing in the virus if you are within close proximity of someone who has COVID-19, or by touching a contaminated surface and then your eyes, nose or mouth.'),
-(6, 'Admin', '2020-05-03', 'James Bond', 'abbbbbbbbbbbbbbbaseawafgaaa');
+(6, 'Admin', '2020-05-03', 'James Bond', 'abbbbbbbbbbbbbbbaseawafgaaa'),
+(12, 'Admin', '2020-05-17', 'No time to die', 'No time to die is available for next one month\r\n'),
+(13, 'Admin', '2020-05-17', 'Frozen 2', 'Frozen 2 is available for next 1 month'),
+(14, 'Admin', '2020-05-17', 'Maleficent 2', 'Maleficent 2 is available for next 1 month\r\n');
 
 -- --------------------------------------------------------
 
@@ -127,7 +129,18 @@ INSERT INTO `purchase` (`id`, `username`, `mv_name`, `ticket_count`, `total_amou
 (9, 'Gongu', 'Birds of prey', 3, 1200, '2020-04-14'),
 (10, 'Akik', 'Birds of prey', 3, 1200, '2020-04-24'),
 (11, 'Nowshin', 'No Time to Die', 3, 1200, '2020-05-04'),
-(12, 'Admin', 'No Time to Die', 1, 400, '2020-05-08');
+(12, 'Admin', 'No Time to Die', 1, 400, '2020-05-08'),
+(13, 'fahad2', 'No Time to Die', 3, 1200, '2020-05-14'),
+(14, 'Nowshin', 'No Time to Die', 1, 400, '2020-05-16'),
+(15, 'Nowshin', 'No Time to Die', 3, 1200, '2020-05-17'),
+(16, '', 'No Time to Die', 5, 2000, '2020-05-17'),
+(17, '', 'No Time to Die', 5, 2000, '2020-05-17'),
+(18, '', 'No Time to Die', 5, 2000, '2020-05-17'),
+(19, 'Nowshin', 'No Time to Die', 5, 2000, '2020-05-17'),
+(20, 'Nowshin', 'No Time to Die', 2, 800, '2020-05-17'),
+(21, 'fahad2', 'Maleficent 2', 2, 800, '2020-05-17'),
+(22, 'fahad2', 'No Time to Die', 1, 400, '2020-05-17'),
+(23, 'fahad2', 'Frozen 2', 2, 1000, '2020-05-17');
 
 -- --------------------------------------------------------
 
@@ -223,7 +236,167 @@ INSERT INTO `schedule` (`id`, `date`, `theatre`, `max_capacity`, `show_1`, `show
 (95, '2020-05-05', 'Gotham', 100, 100, 100, 100),
 (96, '2020-05-06', 'Gotham', 100, 100, 100, 100),
 (97, '2020-05-07', 'Gotham', 100, 100, 100, 100),
-(98, '2020-05-08', 'Gotham', 100, 99, 100, 100);
+(98, '2020-05-08', 'Gotham', 100, 99, 100, 100),
+(99, '2020-05-14', 'Gotham', 100, 100, 97, 100),
+(100, '2020-05-15', 'Gotham', 100, 100, 100, 100),
+(101, '2020-05-16', 'Gotham', 100, 99, 100, 100),
+(102, '2020-05-17', 'Gotham', 100, 87, -5, 100),
+(103, '2020-05-18', 'Gotham', 100, 100, 100, 100),
+(104, '2020-05-19', 'Gotham', 100, 100, 100, 100),
+(105, '2020-05-20', 'Gotham', 100, 100, 100, 100),
+(106, '2020-05-21', 'Gotham', 100, 100, 100, 100),
+(107, '2020-05-22', 'Gotham', 100, 100, 100, 100),
+(108, '2020-05-23', 'Gotham', 100, 100, 100, 100),
+(109, '2020-05-24', 'Gotham', 100, 100, 100, 100),
+(110, '2020-05-25', 'Gotham', 100, 100, 100, 100),
+(111, '2020-05-26', 'Gotham', 100, 100, 100, 100),
+(112, '2020-05-27', 'Gotham', 100, 100, 100, 100),
+(113, '2020-05-28', 'Gotham', 100, 100, 100, 100),
+(114, '2020-05-29', 'Gotham', 100, 100, 100, 100),
+(115, '2020-05-30', 'Gotham', 100, 100, 100, 100),
+(116, '2020-05-31', 'Gotham', 100, 100, 100, 100),
+(117, '2020-06-01', 'Gotham', 100, 100, 100, 100),
+(118, '2020-06-02', 'Gotham', 100, 100, 100, 100),
+(119, '2020-06-03', 'Gotham', 100, 100, 100, 100),
+(120, '2020-06-04', 'Gotham', 100, 100, 100, 100),
+(121, '2020-06-05', 'Gotham', 100, 100, 100, 100),
+(122, '2020-06-06', 'Gotham', 100, 100, 100, 100),
+(123, '2020-06-07', 'Gotham', 100, 100, 100, 100),
+(124, '2020-06-08', 'Gotham', 100, 100, 100, 100),
+(125, '2020-06-09', 'Gotham', 100, 100, 100, 100),
+(126, '2020-06-10', 'Gotham', 100, 100, 100, 100),
+(127, '2020-06-11', 'Gotham', 100, 100, 100, 100),
+(128, '2020-06-12', 'Gotham', 100, 100, 100, 100),
+(129, '2020-06-13', 'Gotham', 100, 100, 100, 100),
+(130, '2020-06-14', 'Gotham', 100, 100, 100, 100),
+(131, '2020-05-14', 'Gotham', 100, 100, 97, 100),
+(132, '2020-05-15', 'Gotham', 100, 100, 100, 100),
+(133, '2020-05-16', 'Gotham', 100, 99, 100, 100),
+(134, '2020-05-17', 'Gotham', 100, 87, -5, 100),
+(135, '2020-05-18', 'Gotham', 100, 100, 100, 100),
+(136, '2020-05-19', 'Gotham', 100, 100, 100, 100),
+(137, '2020-05-20', 'Gotham', 100, 100, 100, 100),
+(138, '2020-05-21', 'Gotham', 100, 100, 100, 100),
+(139, '2020-05-22', 'Gotham', 100, 100, 100, 100),
+(140, '2020-05-23', 'Gotham', 100, 100, 100, 100),
+(141, '2020-05-24', 'Gotham', 100, 100, 100, 100),
+(142, '2020-05-25', 'Gotham', 100, 100, 100, 100),
+(143, '2020-05-26', 'Gotham', 100, 100, 100, 100),
+(144, '2020-05-27', 'Gotham', 100, 100, 100, 100),
+(145, '2020-05-28', 'Gotham', 100, 100, 100, 100),
+(146, '2020-05-29', 'Gotham', 100, 100, 100, 100),
+(147, '2020-05-30', 'Gotham', 100, 100, 100, 100),
+(148, '2020-05-31', 'Gotham', 100, 100, 100, 100),
+(149, '2020-06-01', 'Gotham', 100, 100, 100, 100),
+(150, '2020-06-02', 'Gotham', 100, 100, 100, 100),
+(151, '2020-06-03', 'Gotham', 100, 100, 100, 100),
+(152, '2020-06-04', 'Gotham', 100, 100, 100, 100),
+(153, '2020-06-05', 'Gotham', 100, 100, 100, 100),
+(154, '2020-06-06', 'Gotham', 100, 100, 100, 100),
+(155, '2020-06-07', 'Gotham', 100, 100, 100, 100),
+(156, '2020-06-08', 'Gotham', 100, 100, 100, 100),
+(157, '2020-06-09', 'Gotham', 100, 100, 100, 100),
+(158, '2020-06-10', 'Gotham', 100, 100, 100, 100),
+(159, '2020-06-11', 'Gotham', 100, 100, 100, 100),
+(160, '2020-06-12', 'Gotham', 100, 100, 100, 100),
+(161, '2020-06-13', 'Gotham', 100, 100, 100, 100),
+(162, '2020-06-14', 'Gotham', 100, 100, 100, 100),
+(163, '2020-05-17', 'Themyscira', 200, 200, 200, 200),
+(164, '2020-05-18', 'Themyscira', 200, 200, 198, 200),
+(165, '2020-05-19', 'Themyscira', 200, 200, 200, 200),
+(166, '2020-05-20', 'Themyscira', 200, 200, 200, 200),
+(167, '2020-05-21', 'Themyscira', 200, 200, 200, 200),
+(168, '2020-05-22', 'Themyscira', 200, 200, 200, 200),
+(169, '2020-05-23', 'Themyscira', 200, 200, 200, 200),
+(170, '2020-05-24', 'Themyscira', 200, 200, 200, 200),
+(171, '2020-05-25', 'Themyscira', 200, 200, 200, 200),
+(172, '2020-05-26', 'Themyscira', 200, 200, 200, 200),
+(173, '2020-05-27', 'Themyscira', 200, 200, 200, 200),
+(174, '2020-05-28', 'Themyscira', 200, 200, 200, 200),
+(175, '2020-05-29', 'Themyscira', 200, 200, 200, 200),
+(176, '2020-05-30', 'Themyscira', 200, 200, 200, 200),
+(177, '2020-05-31', 'Themyscira', 200, 200, 200, 200),
+(178, '2020-06-01', 'Themyscira', 200, 200, 200, 200),
+(179, '2020-06-02', 'Themyscira', 200, 200, 200, 200),
+(180, '2020-06-03', 'Themyscira', 200, 200, 200, 200),
+(181, '2020-06-04', 'Themyscira', 200, 200, 200, 200),
+(182, '2020-06-05', 'Themyscira', 200, 200, 200, 200),
+(183, '2020-06-06', 'Themyscira', 200, 200, 200, 200),
+(184, '2020-06-07', 'Themyscira', 200, 200, 200, 200),
+(185, '2020-06-08', 'Themyscira', 200, 200, 200, 200),
+(186, '2020-06-09', 'Themyscira', 200, 200, 200, 200),
+(187, '2020-06-10', 'Themyscira', 200, 200, 200, 200),
+(188, '2020-06-11', 'Themyscira', 200, 200, 200, 200),
+(189, '2020-06-12', 'Themyscira', 200, 200, 200, 200),
+(190, '2020-06-13', 'Themyscira', 200, 200, 200, 200),
+(191, '2020-06-14', 'Themyscira', 200, 200, 200, 200),
+(192, '2020-06-15', 'Themyscira', 200, 200, 200, 200),
+(193, '2020-06-16', 'Themyscira', 200, 200, 200, 200),
+(194, '2020-06-17', 'Themyscira', 200, 200, 200, 200),
+(195, '2020-05-17', 'Gotham', 100, 87, 100, 100),
+(196, '2020-05-18', 'Gotham', 100, 100, 100, 100),
+(197, '2020-05-19', 'Gotham', 100, 100, 100, 100),
+(198, '2020-05-20', 'Gotham', 100, 100, 100, 100),
+(199, '2020-05-21', 'Gotham', 100, 100, 100, 100),
+(200, '2020-05-22', 'Gotham', 100, 100, 100, 100),
+(201, '2020-05-23', 'Gotham', 100, 100, 100, 100),
+(202, '2020-05-24', 'Gotham', 100, 100, 100, 100),
+(203, '2020-05-25', 'Gotham', 100, 100, 100, 100),
+(204, '2020-05-26', 'Gotham', 100, 100, 100, 100),
+(205, '2020-05-27', 'Gotham', 100, 100, 100, 100),
+(206, '2020-05-28', 'Gotham', 100, 100, 100, 100),
+(207, '2020-05-29', 'Gotham', 100, 100, 100, 100),
+(208, '2020-05-30', 'Gotham', 100, 100, 100, 100),
+(209, '2020-05-31', 'Gotham', 100, 100, 100, 100),
+(210, '2020-06-01', 'Gotham', 100, 100, 100, 100),
+(211, '2020-06-02', 'Gotham', 100, 100, 100, 100),
+(212, '2020-06-03', 'Gotham', 100, 100, 100, 100),
+(213, '2020-06-04', 'Gotham', 100, 100, 100, 100),
+(214, '2020-06-05', 'Gotham', 100, 100, 100, 100),
+(215, '2020-06-06', 'Gotham', 100, 100, 100, 100),
+(216, '2020-06-07', 'Gotham', 100, 100, 100, 100),
+(217, '2020-06-08', 'Gotham', 100, 100, 100, 100),
+(218, '2020-06-09', 'Gotham', 100, 100, 100, 100),
+(219, '2020-06-10', 'Gotham', 100, 100, 100, 100),
+(220, '2020-06-11', 'Gotham', 100, 100, 100, 100),
+(221, '2020-06-12', 'Gotham', 100, 100, 100, 100),
+(222, '2020-06-13', 'Gotham', 100, 100, 100, 100),
+(223, '2020-06-14', 'Gotham', 100, 100, 100, 100),
+(224, '2020-06-15', 'Gotham', 100, 100, 100, 100),
+(225, '2020-06-16', 'Gotham', 100, 100, 100, 100),
+(226, '2020-06-17', 'Gotham', 100, 100, 100, 100),
+(227, '2020-05-17', 'Metropolis', 150, 148, 150, 150),
+(228, '2020-05-18', 'Metropolis', 150, 150, 150, 150),
+(229, '2020-05-19', 'Metropolis', 150, 150, 150, 150),
+(230, '2020-05-20', 'Metropolis', 150, 150, 150, 150),
+(231, '2020-05-21', 'Metropolis', 150, 150, 150, 150),
+(232, '2020-05-22', 'Metropolis', 150, 150, 150, 150),
+(233, '2020-05-23', 'Metropolis', 150, 150, 150, 150),
+(234, '2020-05-24', 'Metropolis', 150, 150, 150, 150),
+(235, '2020-05-25', 'Metropolis', 150, 150, 150, 150),
+(236, '2020-05-26', 'Metropolis', 150, 150, 150, 150),
+(237, '2020-05-27', 'Metropolis', 150, 150, 150, 150),
+(238, '2020-05-28', 'Metropolis', 150, 150, 150, 150),
+(239, '2020-05-29', 'Metropolis', 150, 150, 150, 150),
+(240, '2020-05-30', 'Metropolis', 150, 150, 150, 150),
+(241, '2020-05-31', 'Metropolis', 150, 150, 150, 150),
+(242, '2020-06-01', 'Metropolis', 150, 150, 150, 150),
+(243, '2020-06-02', 'Metropolis', 150, 150, 150, 150),
+(244, '2020-06-03', 'Metropolis', 150, 150, 150, 150),
+(245, '2020-06-04', 'Metropolis', 150, 150, 150, 150),
+(246, '2020-06-05', 'Metropolis', 150, 150, 150, 150),
+(247, '2020-06-06', 'Metropolis', 150, 150, 150, 150),
+(248, '2020-06-07', 'Metropolis', 150, 150, 150, 150),
+(249, '2020-06-08', 'Metropolis', 150, 150, 150, 150),
+(250, '2020-06-09', 'Metropolis', 150, 150, 150, 150),
+(251, '2020-06-10', 'Metropolis', 150, 150, 150, 150),
+(252, '2020-06-11', 'Metropolis', 150, 150, 150, 150),
+(253, '2020-06-12', 'Metropolis', 150, 150, 150, 150),
+(254, '2020-06-13', 'Metropolis', 150, 150, 150, 150),
+(255, '2020-06-14', 'Metropolis', 150, 150, 150, 150),
+(256, '2020-06-15', 'Metropolis', 150, 150, 150, 150),
+(257, '2020-06-16', 'Metropolis', 150, 150, 150, 150),
+(258, '2020-06-17', 'Metropolis', 150, 150, 150, 150);
 
 -- --------------------------------------------------------
 
@@ -291,14 +464,15 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `type`, `created_at`) VALUES
 (5, 'Admin', '$2y$10$16egqshMNlCJvAenMtTfrOJreFUzZNNsR0GZ0A3k0qTTS46vvoD7C', 'admin', '2020-03-29 14:28:53'),
-(8, 'Nowshin', '$2y$10$gcon4LAmAc9cVMCXHudzluqxIuszU1cYDVWgpEUu88ftwbbUqygIi', 'customer', '2020-03-31 22:37:17'),
+(8, 'Nowshin', '$2y$10$FbdoEyiIsHyNa66l.ASUl.3NFA2Q4fvCVQon3Y9taT/oi5uzVt69a', 'customer', '2020-03-31 22:37:17'),
 (11, 'Dummy', '$2y$10$zOfptypT9i302N4qChtmJeix.LkscclWqUe7yCAKvp17rBCkr96HW', 'customer', '2020-04-02 08:43:10'),
 (12, 'Doll', '$2y$10$E41WiKmfbyJaZlKTVV9TnOxFG993rvLomffDsDq9rKWr0i1I29FPG', 'customer', '2020-04-02 08:44:56'),
 (13, 'Fahad', '$2y$10$rkNnSd3ZVLNTWNWtfvP1Eu4Qbucgv/ZqiUiS9qwEFYE7sd59t1MzS', 'customer', '2020-04-02 10:58:08'),
 (15, 'Rudba', '$2y$10$OsursrBbDpxl9q.KB5XqGevYmn.md.gcOm9mc3KfmkxpfKkr09CRS', 'customer', '2020-04-02 16:02:00'),
 (16, 'MeRaj', '$2y$10$8D.NC9FE1Q9.SADTvknAIebeAZGNc7ooyUyNCLwzjOJWUcEZMZVXS', 'customer', '2020-04-14 11:37:23'),
 (17, 'Gongu', '$2y$10$PDAx2Me94kOMqiLcyq5ifeHD3lO/dz1S3usZ7ZI5cSMiuRy/u0l.e', 'customer', '2020-04-14 15:12:43'),
-(18, 'Akik', '$2y$10$xGqmBFqDHjaAW4EMR7/xh.MdJjNJsXFSyltOuxozdLt1fC4NuZ87W', 'customer', '2020-04-24 16:59:44');
+(18, 'Akik', '$2y$10$xGqmBFqDHjaAW4EMR7/xh.MdJjNJsXFSyltOuxozdLt1fC4NuZ87W', 'customer', '2020-04-24 16:59:44'),
+(19, 'fahad2', '$2y$10$oj60NVJruYEhUVJmayZ/m.DJ3yEf1IQryjtb6P88TMj6i0gBVzTkG', 'customer', '2020-05-14 19:51:39');
 
 -- --------------------------------------------------------
 
@@ -326,7 +500,8 @@ INSERT INTO `user_info` (`id`, `username`, `full_name`, `email`, `phone`, `dob`,
 (3, 'Rudba', 'MeRaj Rudba', 'mrudba@gmail.com', '01796066203', '1997-08-08', 'Male'),
 (4, 'MeRaj', 'MeRaj', 'mrudba@gmail.com', '01796066203', '1997-08-08', 'Male'),
 (5, 'Gongu', 'Gongu', 'gongu@gmail.com', '01767279928', '2008-02-01', 'Male'),
-(6, 'Akik', 'Akik', 'masum.akik@gmail.com', '01786327385', '1998-11-13', 'Male');
+(6, 'Akik', 'Akik', 'masum.akik@gmail.com', '01786327385', '1998-11-13', 'Male'),
+(7, 'fahad2', 'Fahad Khandoker', 'sasd@gmail.com', '01122456574', '1997-12-12', 'Male');
 
 --
 -- Indexes for dumped tables
@@ -407,7 +582,7 @@ ALTER TABLE `movies`
 -- AUTO_INCREMENT for table `notice`
 --
 ALTER TABLE `notice`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `now_showing`
@@ -419,13 +594,13 @@ ALTER TABLE `now_showing`
 -- AUTO_INCREMENT for table `purchase`
 --
 ALTER TABLE `purchase`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `schedule`
 --
 ALTER TABLE `schedule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=259;
 
 --
 -- AUTO_INCREMENT for table `theatre`
@@ -443,13 +618,13 @@ ALTER TABLE `upcoming`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `user_info`
 --
 ALTER TABLE `user_info`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
