@@ -2,6 +2,66 @@
 session_start();
 include 'config.php';
 include 'databaseQuery.php';
+$conn = OpenCon();
+
+if (isset($_POST['confirmPayment'])) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $time = $_SESSION['show_time_to_search'];
+        $movieName = $_SESSION['movieName'];
+        $theatreName = $_SESSION['theatreName'];
+        $showDate = $_SESSION['showDate'];
+        $showTime = $_SESSION['showTime'];
+        $quantity = $_SESSION['quantity'];
+        $price = $_SESSION['price'];
+        $amount = $_SESSION['amount'];
+
+        $sqlTicketCheck = "SELECT * FROM schedule WHERE theatre = '$theatreName'
+        AND date ='$showDate'
+        AND $time >'$quantity'
+        ";
+        $result = mysqli_query($conn, $sqlTicketCheck);
+        if ($result) {
+
+            $rowCount = mysqli_num_rows($result);
+        }
+        if ($rowCount > 0) {
+            $ticketAvailability = "True";
+            $rowOfSchedule = mysqli_fetch_assoc($result);
+            $previousSeat = $rowOfSchedule[$time];
+            $newSeat = $previousSeat - $quantity;
+            $today = date("Y-m-d");
+            $currentUser=$_SESSION['username'];
+            $sqlToPurchase = "INSERT INTO purchase (username, mv_name, ticket_count, total_amount, purchase_date)
+                VALUES ('$currentUser','$movieName','$quantity','$amount','$today');";
+            $sqlToSchedule = "UPDATE schedule
+                SET $time = '$newSeat' WHERE theatre = '$theatreName'
+                AND date = '$showDate';";
+
+            mysqli_query($conn, $sqlToSchedule);
+            mysqli_query($conn, $sqlToPurchase);
+            header("Location: ticket.php");
+        }
+    }
+} elseif (isset($_POST['cancelPayment'])) {
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $_SESSION['movieName'] = "";
+        $_SESSION['theatreName'] = "";
+        $_SESSION['showDate'] = "";
+        $_SESSION['showTime'] = "";
+        $_SESSION['quantity'] = "";
+        $_SESSION['price'] = "";
+        $_SESSION['amount'] = "";
+        header("Location: index.php");
+    }
+}
+
+
+
+
+CloseCon($conn);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,8 +74,7 @@ include 'databaseQuery.php';
     <script src="https://kit.fontawesome.com/0aae940090.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="profile.css">
-    <link rel="stylesheet" href="purchase.css">
-    <title>Amber Cineplex | Purchase </title>
+    <title>Amber Cineplex | Payment </title>
 </head>
 
 <body>
@@ -67,85 +126,37 @@ include 'databaseQuery.php';
 
     </nav>
 
+
     <div class="container mt-4 fun-image d-flex justify-content-center">
-        <img class="" src="images/illustrator1.png" alt="">
+        <img   src="images/illustrator2.png" alt="">
     </div>
 
 
-
-    <div class="container carousel-container ">
-        <div class="ticket  row">
-            <div class="card ticket-card  col-8">
-                <div class="ticket-head">
-                    <h1>Amber Cineplex</h1>
-                </div>
-                <div class="ticket-body">
-                    <table class="ticket-table">
-
-                        <tr>
-                            <td>
-                                <h3><b>Movie:<b> <?php echo $_SESSION['movieName']; ?></h3>
-
-                            </td>
-                        </tr>
-
-                        <br>
-                        <tr>
-                            <td>
-                                <p><b>Date : </b> <?php echo $_SESSION['showDate']; ?></p>
-                            </td>
-                            <td>
-                                <p><b>Time : </b> <?php echo $_SESSION['showTime']; ?></p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p><b>Theatre : </b> <?php echo $_SESSION['theatreName']; ?></p>
-                            </td>
-                            <td>
-                                <p><b>Quantity : </b> <?php echo $_SESSION['quantity']; ?></p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <p><b>Price : </b> <?php echo $_SESSION['price'] . ' BDT'; ?></p>
-                            </td>
-                            <td>
-                                <p><b>Amount : </b> <?php echo $_SESSION['amount'] . ' BDT'; ?></p>
-                            </td>
-                        </tr>
-
-                    </table>
+    <div class="container carousel-container">
+        <div class="card">
+            <form action="payment.php" method="post" class="form-group">
+                <div class="card-body">
+                    <h1>Your Amount:<?php echo $_SESSION['amount'] . ' BDT'; ?></h1>
 
                 </div>
-                <div class="ticket-footer">
-                    <p class="caution"><b>Please Make sure to bring this ticket with you</b></p>
-                </div>
 
-            </div>
-            <div class=" card ticket-card col-3">
-                <div class="ticket-head">
-                    <h1>Logo</h1>
+                <div class="card-footer">
+                    <button type="submit" name="cancelPayment" class=""><i class="fas fa-times"></i> Decline</button></a>
+                    <button type="submit" name="confirmPayment" class=""><i class="fas fa-check"></i> Accept</button>
                 </div>
-                <div class="ticket-body">
-                    <p><b>Movie : </b> <?php echo $_SESSION['movieName']; ?></p>
-                    <p><b>Theatre : </b> <?php echo $_SESSION['theatreName']; ?></p>
-                    <p><b>Date : </b> <?php echo $_SESSION['showDate']; ?></p>
-                    <p><b>Time : </b> <?php echo $_SESSION['showTime']; ?></p>
-                    <p><b>Quantity : </b> <?php echo $_SESSION['quantity']; ?></p>
-                    <p><b>Amount : </b> <?php echo $_SESSION['amount'] . ' BDT'; ?></p>
-                </div>
-            </div>
+            </form>
         </div>
-
     </div>
-    
     <footer>
         <small>©2020. Amber Cineplex | Dhaka, Bangladesh</small>
     </footer>
+    <!--javaScripts-->
+    <script src="movieSelection.js"></script>
+    <script src="index.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 </body>
 
 </html>

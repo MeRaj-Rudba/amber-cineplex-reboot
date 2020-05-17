@@ -64,31 +64,31 @@ if (isset($_POST['purchase'])) {
         ";
         $result = mysqli_query($conn, $sqlTicketCheck);
         if ($result) {
-            // it return number of rows in the table. 
+            
             $rowCount = mysqli_num_rows($result);
         }
         if ($rowCount > 0) {
-            //$msg = "Hall already exists with the same name!";
-            $ticketAvailability = "True";
-            $rowOfSchedule = mysqli_fetch_assoc($result);
-            $previousSeat= $rowOfSchedule[$time];
-            $newSeat=$previousSeat-$quantity;
-            $today= date("Y-m-d");
-            $sqlToPurchase="INSERT INTO purchase (username, mv_name, ticket_count, total_amount, purchase_date)
-            VALUES ('$currentUser','$movieName','$quantity','$amount','$today');";
-            $sqlToSchedule="UPDATE schedule
-            SET $time = '$newSeat' WHERE theatre = '$theatreName'
-            AND date = '$showDate';";
-
-            mysqli_query($conn, $sqlToSchedule);
-            mysqli_query($conn, $sqlToPurchase);
-
-
-
-
-
-
             
+            // $ticketAvailability = "True";
+            // $rowOfSchedule = mysqli_fetch_assoc($result);
+            // $previousSeat= $rowOfSchedule[$time];
+            // $newSeat=$previousSeat-$quantity;
+            // $today= date("Y-m-d");
+            // $sqlToPurchase="INSERT INTO purchase (username, mv_name, ticket_count, total_amount, purchase_date)
+            // VALUES ('$currentUser','$movieName','$quantity','$amount','$today');";
+            // $sqlToSchedule="UPDATE schedule
+            // SET $time = '$newSeat' WHERE theatre = '$theatreName'
+            // AND date = '$showDate';";
+
+            // mysqli_query($conn, $sqlToSchedule);
+            // mysqli_query($conn, $sqlToPurchase);
+
+
+
+
+
+
+            $_SESSION['show_time_to_search'] = $time;
             $_SESSION['movieName'] = $movieName;
             $_SESSION['theatreName'] = $theatreName;
             $_SESSION['showDate'] = $showDate;
@@ -96,7 +96,7 @@ if (isset($_POST['purchase'])) {
             $_SESSION['quantity'] = $quantity;
             $_SESSION['price'] = $price;
             $_SESSION['amount'] = $amount;
-            header("Location: ticket.php");
+            header("Location: payment.php");
             
 
 
