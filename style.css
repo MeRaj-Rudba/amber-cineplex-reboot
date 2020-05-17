@@ -50,6 +50,8 @@ a {
 }
 .movie-card {
   padding: 0px;
+  
+  transition: box-shadow 500ms;
 }
 .movie_card-body {
   height: 40%;
@@ -318,4 +320,8 @@ h4 {
 .admin-card{
  margin: 10px;
   
+}
+.fun-image img{
+  
+  height: 300px;
 }

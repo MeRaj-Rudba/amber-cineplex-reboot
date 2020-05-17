@@ -4,7 +4,9 @@ function movieSelect(nameid){
     window.location.href = "dataLoad.php?movieName=" + nameid;
 
 }
-function movieGet(){
-    //document.getElementById("movie-name").value = sessionStorage.getItem("selected");
-    console.log(sessionStorage.getItem("selected"));
+function noticeSelect(nameid){
+    sessionStorage.setItem("noticeToDelete", nameid);
+    document.cookie = "noticeToDelete=nameid";
+    window.location.href = "dataLoad.php?noticeToDelete=" + nameid;
+
 }
